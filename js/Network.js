@@ -5,7 +5,6 @@ function Network(feeder, feederView, eventView, status, imageView) {
 	this.eventView = eventView;
 	this.status = status;
 	this.imageView = imageView;
-	this.server = 'http://192.168.2.9:5000/'
 	this.reconnecting = false;
 	this.loggedin = false;
 	this.username = '';
@@ -16,7 +15,7 @@ Network.prototype.updateStatus = function(callback) {
 	var instance = this;
 	$.ajax({
 		type: "GET",
-		url:  this.server + 'api/status',
+		url: 'api/status',
 		success: function(data) {
 			instance.onUpdateSuccess(data);
 			if (callback) callback();
@@ -52,7 +51,7 @@ Network.prototype.checkForUpdate = function() {
 	}*/
 	$.ajax({
 		type: "GET",
-		url:  Network.instance.server + 'api/checkforupdate',
+		url:  'api/checkforupdate',
 		data: "version=" + Network.instance.status.version,
 		success: function(data) {
 			if (data == 'true' || Network.instance.reconnecting)
