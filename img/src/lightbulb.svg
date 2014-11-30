@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Neues Dokument 1">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="214.52928"
+     inkscape:cy="478.59168"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     inkscape:window-x="1272"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;stroke:#333333;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1"
+       d="m 283.21429,506.29075 c 0.28064,-46.81581 39.18444,-72.05486 72.85714,-72.14285 33.6727,-0.088 69.85607,26.57382 71.07143,69.64285 1.21536,43.06903 -25.68552,39.59935 -36.07143,112.5 -0.32245,6.23141 -3.21411,9.68176 -10,10 -26.25018,-0.0389 -27.9803,-0.10141 -49.64286,0 -4.96613,-0.16645 -10.12823,-3.24872 -10.71428,-8.21428 -6.65747,-59.60842 -35.99492,-68.54134 -37.5,-111.78572 z"
+       id="path2996"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="czcccccc"
+       inkscape:export-filename="C:\Users\Marian\Desktop\light1.png"
+       inkscape:export-xdpi="33.486732"
+       inkscape:export-ydpi="33.486732" />
+    <path
+       style="color:#000000;fill:none;stroke:#333333;stroke-width:18.86768912999999900;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;fill-opacity:1"
+       d="m 323.54821,655.31115 64.91652,0"
+       id="path3766"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Marian\Desktop\light1.png"
+       inkscape:export-xdpi="33.486732"
+       inkscape:export-ydpi="33.486732" />
+    <path
+       style="color:#000000;fill:none;stroke:#333333;stroke-width:18.86768912999999900;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;fill-opacity:1"
+       d="m 323.18774,683.71759 65.34929,0"
+       id="path3768"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Marian\Desktop\light1.png"
+       inkscape:export-xdpi="33.486732"
+       inkscape:export-ydpi="33.486732" />
+  </g>
+</svg>

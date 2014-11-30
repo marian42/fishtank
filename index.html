@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="img/favicon.ico">
+
+		<title>Marian's Fish Tank</title>
+	
+		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		
+		<link href="css/dashboard.css" rel="stylesheet">
+		<link href="container.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+		
+		<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+		<script src="js/ie-emulation-modes-warning.js"></script>
+
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<script src="js/ie10-viewport-bug-workaround.js"></script>
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	</head>
+
+	<body data-spy="scroll" data-offset="55" data-target="#scrollspy">
+
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" id="navbartoggle" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#" style="color:#FFFFFF;"><img style="height:16px; position:relative; top:-2px;" src="img/fish.png"></a>
+					<a class="navbar-brand name hidden-xs" href="#" style="color:#FFFFFF; padding-left:20px;">Marian's Fish Tank</a>
+					<a class="navbar-brand name hidden-xs" href="#" style="margin-right:15px;">Alpha</a>
+					<div class="navbar-brand" style="color:#FFFFFF; font-size:14px; padding-left:0px;"><span style="color:#909090">Status: </span><span id="status">Loading...</span></div>
+				</div>
+				<div class="navbar-collapse collapse" id="navmain">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#" id="btnlogin">Login</a></li>						
+						<li><a href="#" id="currentuser" style="display:none; color:#FFFFFF;">user</a></li>
+						<li><a href="#" id="btnlogout" style="display:none;" id="btnlogout">Log out</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div id="divlogin" style="display:none; width:300px; top:70px; right:20px; position:fixed; background-color:#FFFFFF; z-index:1; padding:20px; border-radius:5px; border: 1px solid #767676;  box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.5);">
+			<form class="form-signin" id="loginform" role="form">
+				<input type="username" id="inputusername" class="form-control" placeholder="Username" required autofocus>
+				<input type="password" id="inputpassword" class="form-control" placeholder="Password" required>
+			</form>
+			<div id="loggingin" style="padding-top:20px; display:none;"><img src="img/loading.gif">&nbsp;Logging in...</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3 col-md-2 sidebar" id="scrollspy">
+					<ul class="nav nav-sidebar">
+						<li class="active"><a href="#dashboard">Dashboard</a></li>
+						<li><a href="#dailyschedule">Daily schedule</a></li>
+						<li><a href="#containers">Containers</a></li>
+						<li><a href="#pictures">Pictures</a></li>
+						<li><a href="#log">Log</a></li>
+					</ul>
+					<ul class="nav nav-sidebar">
+						<li><a href="#about">About</a></li>
+					</ul>
+				</div>
+				
+				<div style="height:20px; display:box;"></div>
+				
+				<!-- Jumbotron -->
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor"  id="jumbotron" style="display:none;">
+					<div class="jumbotron">
+						<h1>Hi there! You can feed my fish!</h1>
+						<p>Select a container below and click Feed.</p>
+						<p>This is the control panel of my internet-connected fish tank. Guests may choose fish food and trigger the automated fish feeder when the fish are hungry and awake.</p>
+						<p>The project is made with an Arduino and a Raspberry Pi. Read more about how it works here.</p>
+						<p><a class="btn btn-primary btn-lg" role="button" href="#containers">Select food</a></p>
+					</div>
+				</div>
+				
+				<!--<div class="col-sm-12 col-md-12 main anchor" style="position:fixed; z-index:1000; margin-top:50px;">
+					<div style="background-color:#FF0000; width:100%; height:30px; margin-left:0">
+						Test
+					</div>
+				</div>-->
+				
+				<!-- Dashboard -->
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="dashboard">
+					<h1 class="page-header">Dashboard</h1>					
+					<div style="height:55px;">
+						<span style="float:right; margin-bottom:20px;">
+							<span class="input-group" style="padding-right:10px; display:table-cell; vertical-align:top;">
+								<img src="img/loading.gif" id="dashboardloading" style="position:relative; top:-2px; display:none;">										
+							</span>
+							<span class="input-group" style="width:120px; display:table-cell;">
+								<span class="input-group-btn" id="ddledcolor" role="group">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										<div class="led" id="ledcolorpreview" style="background-color:#0000FF;"></div>
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li class="liled"><a href="#"><div class="led" style="background-color:#FF0000;"></div></a></li>
+										<li class="liled"><a href="#"><div class="led" style="background-color:#FF6A00;"></div></a></li>
+										<li class="liled"><a href="#"><div class="led" style="background-color:#FFD800;"></div></a></li><br>
+										<li class="liled"><a href="#"><div class="led" style="background-color:#4CFF00;"></div></a></li>
+										<li class="liled"><a href="#"><div class="led" style="background-color:#00FF90;"></div></a></li>
+										<li class="liled"><a href="#"><div class="led" style="background-color:#0094FF;"></div></a></li><br>
+										<li class="liled"><a href="#"><div class="led" style="background-color:#0000FF;"></div></a></li>										
+										<li class="liled"><a href="#"><div class="led" style="background-color:#FF006E;"></div></a></li>									
+										<li class="liled"><a href="#"><div class="led" style="background-color:#EBEBEB;"></div></a></li>
+									</ul>
+								</span>
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" id="btnflashled">Flash LED</button>
+								</span>
+							</span>
+							<span class="input-group" style="padding-left:4px; display:table-cell; vertical-align:top;">
+								<button type="button" class="btn btn-default" id="btnswitchlights"><img id="imglightstatus" src="http://marian42.no-ip.biz:81/fishtank/img/light0.png" width="16px">&nbsp;Switch light</button>
+							</span>
+						</span>
+					</div>
+					
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-2">
+							<img id="latestpicture" src="pics/latest.jpg" width="100%">
+							<br><br>
+						</div>
+						<div class="col-xs-6 col-sm-3 col-md-2" style="text-align:center">
+							<h4>Saturation</h4>
+							<div style="font-size:32px;" id="statusstaturation"></div>
+							<div class="text-muted" id="statuslastfed">last fed</div><br><br>						
+						</div><div class="col-xs-6 col-sm-3 col-md-2" style="text-align:center">
+							<h4>Food stored for</h4>
+							<div style="font-size:32px;" id="statusfoodavailabe"></div>
+							<div class="text-muted">days</div><br><br>					
+						</div>
+						<div class="col-xs-6 col-sm-3 col-md-2" style="text-align:center">
+							<h4>Automated feeding for</h4>
+							<div style="font-size:32px;" id="statusautofeedamount"></div>
+							<div class="text-muted">days</div><br><br>
+						</div>
+						<div class="col-xs-6 col-sm-3 col-md-2" style="text-align:center">
+							<h4>Next Event in</h4>
+							<div style="font-size:32px;" id="nexteventtime"></div>
+							<div class="text-muted" id="nexteventtype">(Event type)</div><br><br>
+						</div>
+						<div class="col-xs-6 col-sm-3 col-md-2" style="text-align:center">
+							<h4>Light is</h4>
+							<div style="font-size:32px;" id="lightsvalue"></div>
+							<div class="text-muted" id="nextlighteventtime"></div><br><br>
+						</div>
+					</div>					
+				</div>
+				
+				
+				<!-- Daily Schedule -->
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="dailyschedule">
+					<h1 class="page-header">Daily Schedule</h1>					
+					<div style="height:55px;">
+						<span style="float:right; margin-bottom:20px;">
+							<span class="input-group" style="padding-right:10px; display:table-cell; vertical-align:top;">
+								<img src="img/loading.gif" id="scheduleloading" style="position:relative; top:-2px; display:none;">										
+							</span>
+							<span class="input-group" style="width:100px; display:table-cell;">
+								<span class="input-group-addon">Schedule</span>
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" id="btnschedule"></button>
+								</span>
+							</span>
+							<span class="input-group" style="padding-left:4px; display:table-cell; vertical-align:top;">
+								<button type="button" class="btn btn-default" id="btnaddevent"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Event</button>
+							</span>
+						</span>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<svg 
+								id="svgevents"
+								xml:space="preserve"
+								preserveAspectRatio="xMinYMin meet"
+								height="100%" width="100%"
+								viewBox="-1 -10 242 33">
+								<defs
+									id="defs4">
+									<linearGradient
+										id="linearGradient3755">
+										<stop
+											style="stop-color:#C2C2C2;stop-opacity:1;"
+											offset="0"
+											id="stop3757" />
+										<stop
+											id="stop3771"
+											offset="0.22"
+											style="stop-color:#C2C2C2;stop-opacity:1;" />
+										<stop
+											id="stop3763"
+											offset="0.28"
+											style="stop-color:#ffffff;stop-opacity:0;" />
+										<stop
+											style="stop-color:#ffffff;stop-opacity:0;"
+											offset="0.85"
+											id="stop3767" />
+										<stop
+											id="stop3773"
+											offset="0.91"
+											style="stop-color:#C2C2C2;stop-opacity:1;" />
+										<stop
+											style="stop-color:#C2C2C2;stop-opacity:1;"
+											offset="1"
+											id="stop3759" />
+									</linearGradient>
+								</defs>
+								<rect width="240" height="20" x="0" y="0" style="fill:url(#linearGradient3755)" class="schedulebackground"/>
+								<line x1="10" y1="0" x2="10" y2="20" class="hour"/>
+								<line x1="20" y1="0" x2="20" y2="20" class="hour"/>
+								<line x1="30" y1="0" x2="30" y2="20" class="hour"/>
+								<line x1="40" y1="0" x2="40" y2="20" class="hour"/>
+								<line x1="50" y1="0" x2="50" y2="20" class="hour"/>
+								<line x1="60" y1="0" x2="60" y2="20" class="hour"/>
+								<line x1="70" y1="0" x2="70" y2="20" class="hour"/>
+								<line x1="80" y1="0" x2="80" y2="20" class="hour"/>
+								<line x1="90" y1="0" x2="90" y2="20" class="hour"/>
+								<line x1="100" y1="0" x2="100" y2="20" class="hour"/>
+								<line x1="110" y1="0" x2="110" y2="20" class="hour"/>
+								<line x1="120" y1="0" x2="120" y2="20" class="hour"/>
+								<line x1="130" y1="0" x2="130" y2="20" class="hour"/>
+								<line x1="140" y1="0" x2="140" y2="20" class="hour"/>
+								<line x1="150" y1="0" x2="150" y2="20" class="hour"/>
+								<line x1="160" y1="0" x2="160" y2="20" class="hour"/>
+								<line x1="170" y1="0" x2="170" y2="20" class="hour"/>
+								<line x1="180" y1="0" x2="180" y2="20" class="hour"/>
+								<line x1="190" y1="0" x2="190" y2="20" class="hour"/>
+								<line x1="200" y1="0" x2="200" y2="20" class="hour"/>
+								<line x1="210" y1="0" x2="210" y2="20" class="hour"/>
+								<line x1="220" y1="0" x2="220" y2="20" class="hour"/>
+								<line x1="230" y1="0" x2="230" y2="20" class="hour"/>
+								<text x="1" y="18"	class="hourlabel">0:00</text>
+								<text x="11" y="18"	class="hourlabel">1:00</text>
+								<text x="21" y="18"	class="hourlabel">2:00</text>
+								<text x="31" y="18"	class="hourlabel">3:00</text>
+								<text x="41" y="18"	class="hourlabel">4:00</text>
+								<text x="51" y="18"	class="hourlabel">5:00</text>
+								<text x="61" y="18"	class="hourlabel">6:00</text>
+								<text x="71" y="18"	class="hourlabel">7:00</text>
+								<text x="81" y="18"	class="hourlabel">8:00</text>
+								<text x="91" y="18"	class="hourlabel">9:00</text>
+								<text x="101" y="18"	class="hourlabel">10:00</text>
+								<text x="111" y="18"	class="hourlabel">11:00</text>
+								<text x="121" y="18"	class="hourlabel">12:00</text>
+								<text x="131" y="18"	class="hourlabel">13:00</text>
+								<text x="141" y="18"	class="hourlabel">14:00</text>
+								<text x="151" y="18"	class="hourlabel">15:00</text>
+								<text x="161" y="18"	class="hourlabel">16:00</text>
+								<text x="171" y="18"	class="hourlabel">17:00</text>
+								<text x="181" y="18"	class="hourlabel">18:00</text>
+								<text x="191" y="18"	class="hourlabel">19:00</text>
+								<text x="201" y="18"	class="hourlabel">20:00</text>
+								<text x="211" y="18"	class="hourlabel">21:00</text>
+								<text x="221" y="18"	class="hourlabel">22:00</text>
+								<text x="231" y="18"	class="hourlabel">23:00</text>
+								<rect
+									width="0"
+									height="3"
+									x="0" y="11"
+									class="darknessline"
+									id="firstdarknessline"/>
+								<line x1="0" y1="0" x2="0" y2="20" class="eventnow" id="currenttime"/>
+								<g 
+									id="markerprototype"
+									style="display:none;"
+									class="eventmarker"
+									>
+									<path
+										d="m 0,5 c 0,0 -4.673701,-7.407605 -4.656607,-9.976437 0.01709,-2.568832 2.187947,-4.679049 4.551697,-4.665588 2.36376,0.01346 4.76164,1.687267 4.75034,4.705973 -0.0113,3.018708 -4.64543,9.936052 -4.64543,9.936052 z"
+									/>
+									<image 
+										id="imageprototype"
+										width="6"
+										height="6"
+										x="-3"
+										y="-8"											
+										xlink:href="img/food1.png"
+									/>
+									<rect
+										width="0"
+										height="3"
+										x="0" y="11"
+										class="darknessline"/>
+								</g>
+							</svg>
+						</div>
+						<div class="col-md-6">
+							<div class="panel panel-primary" style="display:none;" id="editevent">
+								<div class="panel-heading">
+									<h3 class="panel-title" id="editeventtitle">Edit Event</h3>
+								</div>
+								<div class="panel-body">
+									<span class="inputdescription">Event type</span>
+									<span id="ddeventtype" class="dropdown" style="margin-bottom:15px;">
+										<button class="btn btn-default dropdown-toggle" type="button" id="" data-toggle="dropdown">
+											<span id="ddeventtypecurrent">Feed</span>
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="">
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Feed</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Light</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Take picture</a></li>
+										</ul>
+									</span>
+									
+									<div style="margin-bottom:20px;">
+										<span class="inputdescription">Time</span>
+										<span style="display:inline-block; position:relative; top:12px;">
+											<span class="input-group" style="width:130px">
+												<input type="text" class="form-control" id="eventhour">
+												<span class="input-group-addon">:</span>
+												<input type="text" class="form-control" id="eventminute">										
+											</span>
+										</span>
+									</div>
+									<div style="margin-bottom:15px;">
+										<span class="inputdescription">Days</span>
+										<div class="btn-group">
+											<button type="button" class="btn btn-default" id="dayselector0" onclick="dayselectorclick(event);">Mon</button>
+											<button type="button" class="btn btn-default" id="dayselector1" onclick="dayselectorclick(event);">Tue</button>
+											<button type="button" class="btn btn-default" id="dayselector2" onclick="dayselectorclick(event);">Wed</button>
+											<button type="button" class="btn btn-default" id="dayselector3" onclick="dayselectorclick(event);">Thu</button>
+											<button type="button" class="btn btn-default" id="dayselector4" onclick="dayselectorclick(event);">Fri</button>
+											<button type="button" class="btn btn-default" id="dayselector5" onclick="dayselectorclick(event);">Sat</button>
+											<button type="button" class="btn btn-default" id="dayselector6" onclick="dayselectorclick(event);">Sun</button>
+											<button type="button" class="btn btn-default" id="dayselector7" onclick="dayselectorclick(event);">All</button>
+										</div>
+									</div>
+									<div id="editeventfeed">
+										<span class="inputdescription">Food types</span>
+										<div class="btn-group">
+											<button type="button" class="btn btn-default" id="foodselector0" onclick="foodselectorclick(event);"><img width="30px" src="img/food1.png"></button>
+											<button type="button" class="btn btn-default" id="foodselector1" onclick="foodselectorclick(event);"><img width="30px" src="img/food2.png"></button>
+											<button type="button" class="btn btn-default" id="foodselector2" onclick="foodselectorclick(event);"><img width="30px" src="img/food3.png"></button>
+											<button type="button" class="btn btn-default" id="foodselector3" onclick="foodselectorclick(event);"><img width="30px" src="img/food4.png"></button>
+											<button type="button" class="btn btn-default" id="foodselector4" onclick="foodselectorclick(event);"><img width="30px" src="img/food5.png"></button>
+											<button type="button" class="btn btn-default" id="foodselector5" onclick="foodselectorclick(event);"><img width="30px" src="img/food6.png"></button>
+											<button type="button" class="btn btn-default" id="foodselector6" onclick="foodselectorclick(event);"><div style="height:30px; display:table-cell; vertical-align:middle;">Any</div></button>
+										</div>
+										<div style="margin-bottom:20px;">
+											<span class="inputdescription">Max. saturation</span>
+											<span style="display:inline-block; position:relative; top:12px;">
+												<input type="text" class="form-control" id="eventmaxsaturation">
+											</span>
+										</div>
+										<div style="margin-bottom:20px;">
+											<span class="inputdescription">Amount</span>
+											<span style="display:inline-block; position:relative; top:12px;">
+												<span class="input-group" style="width:200px">
+													<span class="input-group-addon">from</span>
+													<input type="text" class="form-control" id="eventminamount">
+													<span class="input-group-addon">to</span>
+													<input type="text" class="form-control" id="eventmaxamount">
+												</span>
+											</span>
+										</div>
+									</div>
+									<div id="editeventlight" style="margin-top:-12px; display:none;">
+										<span class="inputdescription">Value</span>
+										<span style="display:inline-block; position:relative; top:12px;">
+											<input type="checkbox" class="form-control" id="eventlight">
+										</span>
+									</div>
+									<div style="margin-top:12px;">
+										<div class="inputdescription" style="vertical-align: top;">Status</div>
+										<div id="eventstatus" style="display:inline-block; width:400px; margin-bottom:12px;">
+											Loading<br>Test<br>Test
+										</div>
+									</div>
+									<div id="" style="text-align:right;">
+										<img src="img/loading.gif" id="eventbtnsubmitloading" style="display:none;">
+										<button type="button" class="btn btn-default" id="btnediteventcancel">Cancel</button>
+										<button type="button" class="btn btn-default" id="btnediteventdelete"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button>
+										<button type="button" class="btn btn-success" id="btnediteventsubmit"><span class="glyphicon glyphicon-ok"></span>&nbsp;Save changes</button>
+									</div>
+								</div>
+							</div>								
+						</div>
+					</div>					
+				</div>
+				
+				<!-- Containers -->
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="containers">
+					<h1 class="page-header">Containers</h1>
+					<div style="text-align:right; margin-bottom:20px;">
+						<img src="img/loading.gif" id="containerloading" style="display:none;">
+						<button type="button" class="btn btn-default" id="btncalibrate"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;Calibrate</button>
+						<button type="button" id="btnmove" class="btn btn-default" style="display:none;"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Move there</button>
+						<button type="button" id="btnfeedcontainer" class="btn btn-success" style="display:none;"><span class="glyphicon glyphicon-cutlery"></span>&nbsp;Feed</button>						
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-6">
+							<svg 
+								id="svgcontainers"
+								viewBox="0 0 500 500">
+								<circle
+									id="containerdismiss"
+									cx="250"
+									cy="250"
+									r="160"
+									fill="#FFFFFF"
+								/>
+								<g 
+									id="containerprototype"
+									class="container"
+									>
+									<path 
+										id="containerprototype"
+										d="m 233.84607,86.384403 c 10.83644,-1.106827 20.4684,-1.171461 31.73141,-0.199467 L 273.9129,3.2434144 C 251.30937,1.6357405 246.36229,1.8869625 223.7074,3.9153015 z"
+									/>
+									<image 
+										id="imageprototype"
+										width="34"
+										height="34"
+										x="233"
+										y="10"											
+										xlink:href=""
+									/>
+									<path
+										id="status"
+										class="containerstatus"
+										d="m 237.9464,81.423982 c 7.32457,-0.914274 15.83005,-0.888665 23.52931,-0.07346 l 0.57048,-6.360425 c -8.29721,-1.068065 -15.18557,-1.081051 -24.85892,0.04546 z"											
+									/>
+									<text
+										x="250"
+										y="103"
+										class="containerlabel"
+									>											
+										1
+									</text>
+								</g>
+								<path
+									id="target"
+									style="display:none; fill:#50AA50"
+									d="m 230,125 40,0 -20,-11.59 z"
+								/>
+								<path
+									id="indicator"
+									d="m 230,125 40,0 -20,-11.59 z"
+								/>
+							</svg>
+							<span style="width:1px; height:20px; display: block;"></span>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-6">
+							<div class="panel panel-primary" style="display:none;" id="containerdetails">
+								<div class="panel-heading">
+									<h3 class="panel-title" id="foodDetailsTitle">Container 23</h3>									
+								</div>
+								<div class="panel-body">
+									<div style="margin-bottom:15px;">
+										<span class="inputdescription">Food</span>
+										<span id="ddfoodtype" class="dropdown" style="margin-bottom:15px;">
+											<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+												<img id="ddfoodtypecurrentimg" width="50px">
+												<span id="ddfoodtypecurrent"></span>
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+												<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/food1.png" width="50px"></a></li>
+												<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/food2.png" width="50px"></a></li>
+												<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/food3.png" width="50px"></a></li>
+												<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/food4.png" width="50px"></a></li>
+												<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/food5.png" width="50px"></a></li>
+												<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/food6.png" width="50px"></a></li>
+												<li role="presentation" class="divider"></li>
+												<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Empty</a></li>
+											</ul>
+										</span>
+									</div>
+									<div id="ddamount" class="dropdown" style="margin-bottom:15px;">
+										<span class="inputdescription">Amount</span>
+										<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+											<span id="ddamountcurrent">1</span>
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">0.1</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">0.2</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">0.33</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">0.5</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">0.66</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">1</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">1.5</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">2</a></li>
+										</ul>
+									</div>
+									<div id="ddpriority" class="dropdown" style="margin-bottom:15px;">
+										<span class="inputdescription">Priority</span>
+										<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+											<span id="ddprioritycurrent">Default</span>												
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Prefer</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Default</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Defer</a></li>
+											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Don't use</a></li>
+										</ul>
+									</div>
+									<span class="inputdescription">Last changed</span>
+									<span id="containerlastfilled">(Unknown)</span><br><br>
+										
+									<div id="diveditcontainer" style="text-align:right; display:none;">
+										<img src="img/loading.gif" id="containerbtnsubmitloading" style="display:none;">
+										<button type="button" class="btn btn-default" id="containerbtncancel">Cancel</button>
+										<button type="button" class="btn btn-success" id="containerbtnsubmit"><span class="glyphicon glyphicon-ok"></span>&nbsp;Save changes</button>
+									</div>
+								</div>
+							</div>								
+						</div>						
+					</div>
+				</div>
+				
+				<!-- Pictures -->
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="pictures">
+					<h1 class="page-header">Pictures</h1>					
+					<div style="text-align:right; margin-bottom:20px;">
+						<img src="img/loading.gif" id="pictureloading" style="display:none;">
+						<button type="button" class="btn btn-default" id="btntakepicture"><span class="glyphicon glyphicon-camera"></span>&nbsp;Take picture</button>
+					</div>
+					<div class="fluid" id="imagecontainer" style="overflow:auto;">						
+						<div class="col-xs-6 col-sm-6 col-md-2" id="pictureprototype" style="display:none; padding:10px;">
+							<img src="" width="100%">
+						</div>
+					</div>
+				</div>
+				
+				<!-- Log -->
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="log">
+					<h1 class="page-header">Log</h1>				
+					<table class="table">
+						<thead>
+							<tr>
+								<th width="1%" class="hidden-xs">#</th>
+								<th width="10%">Time</th>
+								<th width="3%">Level</th>
+								<th width="*">Message</th>
+								<th width="10%" class="hidden-xs">Image</th>
+								<th width="7%">by</th>
+							</tr>
+						</thead>
+						<tbody id="tablelog">
+						</tbody>
+					</table>
+				</div>
+				
+				<!-- About -->
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="about">
+					<h1 class="page-header">About</h1>					
+					Information about the project<br><br>
+					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, 
+				</div>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="js/moment.min.js"></script>
+		<script src="js/Status.js"></script>
+		<script src="js/Container.js"></script>
+		<script src="js/Feeder.js"></script>
+		<script src="js/FeederView.js"></script>
+		<script src="js/LogView.js"></script>
+		<script src="js/EventEditor.js"></script>
+		<script src="js/EventView.js"></script>
+		<script src="js/ImageView.js"></script>
+		<script src="js/Network.js"></script>
+		<script src="js/fishtank.js"></script>
+		
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/docs.min.js"></script>
+	</body>
+</html>

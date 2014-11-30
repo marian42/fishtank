@@ -1,0 +1,165 @@
+.led {
+	border-radius: 50%;
+	width: 12px;
+	height: 12px;
+	display:inline-block;
+	position:relative;
+	top:2px;
+}
+
+.liled {
+	display:inline-block;
+	height: 30px;
+}
+
+.logindex {
+	color: #808080;
+}
+
+.tooltip2{
+	display: inline;
+	position: relative;
+}
+
+.tooltip2:hover:after{
+	background: #333;
+	background: rgba(0,0,0,.9);
+	border-radius: 5px;
+	bottom: 26px;
+	color: #fff;
+	content: attr(title);
+	left: 20%;
+	padding: 5px 10px;
+	position: absolute;
+	z-index: 98;
+	text-align:center;	
+	font-size:12px;
+}
+
+.tooltip2:hover:before{
+	border: solid;
+	border-color: #333 transparent;
+	border-width: 6px 6px 0 6px;
+	bottom: 20px;
+	content: "";
+	left: 50%;
+	position: absolute;
+	z-index: 99;
+}
+
+.anchor{
+	padding-top: 10px;
+	margin-top: -10px;
+}
+
+.schedulebackground {
+	stroke: #000000;
+	fill-opacity: 1;
+	stroke-opacity: 1;
+	stroke-width:0.2;
+}
+
+.hour {
+	stroke: #606060;
+	fill-opacity: 0;
+	stroke-opacity: 0.5;
+	stroke-width:0.2;
+}
+
+.inputdescription {
+	width:100px;
+	display:inline-block;
+	text-align:right;
+	margin-right:10px;
+}
+
+.buttonselected {
+	background-color:#428BCA;
+	border-color:#254D71;
+	color:#FFFFFF;
+}
+
+.buttonselected:hover {
+	background-color:#428BCA;
+	border-color:#254D71;
+	color:#FFFFFF;
+}
+
+.buttonselected:active {
+	background-color:#428BCA;
+	border-color:#254D71;
+	color:#FFFFFF;
+}
+
+.buttonselected:focus {
+	background-color:#428BCA;
+	border-color:#254D71;
+	color:#FFFFFF;
+}
+
+.buttonselected:active:focus {
+	background-color:#428BCA;
+	border-color:#254D71;
+	color:#FFFFFF;
+}
+
+.hourlabel{
+	font-size: 2px;
+	fill:#505050;
+	fill-opacity: 1;
+	stroke-opacity: 0;
+}
+
+.eventnow{
+	stroke:#428BCA;
+	fill-opacity: 0;
+	stroke-opacity: 1;
+	stroke-width:0.7;
+}
+
+.darknessline{
+	fill-opacity: 0.7;
+	stroke-opacity: 0;
+	fill:#000000;
+}
+
+.eventmarker{
+	fill:#ee9f30;
+	fill-opacity:1;
+	stroke:none;
+}
+
+.eventmarker:hover{
+	fill-opacity:0.5;
+	stroke-opacity:1;
+	stroke:#333333;
+	stroke-width:0.2;
+}
+
+
+.form-signin {
+  max-width: 330px;
+  padding: 0px;
+  margin: 0 auto;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="username"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

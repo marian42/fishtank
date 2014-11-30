@@ -1,0 +1,75 @@
+.container { 
+	fill: #EBEBEB;
+	fill-opacity: 1;
+	stroke: #808080;
+	stroke-width:1.8;
+	stroke-linecap: butt;
+	stroke-linejoin: miter;
+	stroke-miterlimit: 4;
+	stroke-opacity: 1;
+	stroke-dasharray:none;
+}
+
+.container:hover { 
+	fill: #F6F6F6;
+	stroke: #2C2C2C;	
+}
+
+.container:active { 
+	fill: #FFFFFF;
+	stroke: #D7D7D7;	
+}
+
+.containerselected { 
+	fill: #ABDBFF;
+	fill-opacity: 1;
+	stroke: #006CCA;
+	stroke-width:1.8;
+	stroke-linecap: butt;
+	stroke-linejoin: miter;
+	stroke-miterlimit: 4;
+	stroke-opacity: 1;
+	stroke-dasharray:none;
+}
+
+.containerselected:hover { 
+	fill: #D1EBFF;
+	stroke: #006CCA;	
+}
+
+.container:active { 
+	fill: #FFFFFF;
+	stroke: #D7D7D7;	
+}
+
+.containerstatus {
+	fill-opacity: 0;
+	stroke-opacity: 0;
+}
+
+.containerstatusprefer {
+	fill: #50AA50;
+	fill-opacity: 1;
+	stroke-opacity: 0;
+}
+
+.containerstatusdefer {
+	fill: #EE9F30;
+	fill-opacity: 1;
+	stroke-opacity: 0;
+}
+
+.containerstatusdontuse {
+	fill: #D03F3B;
+	fill-opacity: 1;
+	stroke-opacity: 0;
+}
+
+.containerlabel{
+	font-size: 11px;
+	fill:#808080;	
+	fill-opacity: 1;
+	stroke-opacity: 0;
+	text-align: center;
+	text-anchor: middle;
+}

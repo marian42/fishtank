@@ -1,0 +1,4 @@
+*.pyc
+pics/
+server/state.ini
+server/users.ini
