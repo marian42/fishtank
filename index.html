@@ -9,14 +9,14 @@
 		<link rel="icon" href="img/favicon.ico">
 
 		<title>Marian's Fish Tank</title>
-	
+
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
-		
+
 		<link href="css/dashboard.css" rel="stylesheet">
 		<link href="container.css" rel="stylesheet">
 		<link href="style.css" rel="stylesheet">
-		
+
 		<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 		<script src="js/ie-emulation-modes-warning.js"></script>
@@ -50,15 +50,15 @@
 				</div>
 				<div class="navbar-collapse collapse" id="navmain">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#" id="btnlogin">Login</a></li>						
+						<li><a href="#" id="btnlogin">Login</a></li>
 						<li><a href="#" id="currentuser" style="display:none; color:#FFFFFF;">user</a></li>
 						<li><a href="#" id="btnlogout" style="display:none;" id="btnlogout">Log out</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-		
-		<div id="divlogin" style="display:none; width:300px; top:70px; right:20px; position:fixed; background-color:#FFFFFF; z-index:1; padding:20px; border-radius:5px; border: 1px solid #767676;  box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.5);">
+
+		<div id="divlogin" style="display:none; width:300px; top:70px; right:20px; position:fixed; background-color:#FFFFFF; z-index:1; padding:20px; border-radius:5px; border: 1px solid #767676; box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.5);">
 			<form class="form-signin" id="loginform" role="form">
 				<input type="username" id="inputusername" class="form-control" placeholder="Username" required autofocus>
 				<input type="password" id="inputpassword" class="form-control" placeholder="Password" required>
@@ -79,11 +79,11 @@
 						<li><a href="#about">About</a></li>
 					</ul>
 				</div>
-				
+
 				<div style="height:20px; display:box;"></div>
-				
+
 				<!-- Jumbotron -->
-				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor"  id="jumbotron" style="display:none;">
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="jumbotron" style="display:none;">
 					<div class="jumbotron">
 						<h1>Hi there! You can feed my fish!</h1>
 						<p>Select a container below and click Feed.</p>
@@ -92,20 +92,20 @@
 						<p><a class="btn btn-primary btn-lg" role="button" href="#containers">Select food</a></p>
 					</div>
 				</div>
-				
+
 				<!--<div class="col-sm-12 col-md-12 main anchor" style="position:fixed; z-index:1000; margin-top:50px;">
 					<div style="background-color:#FF0000; width:100%; height:30px; margin-left:0">
 						Test
 					</div>
 				</div>-->
-				
+
 				<!-- Dashboard -->
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="dashboard">
-					<h1 class="page-header">Dashboard</h1>					
+					<h1 class="page-header">Dashboard</h1>
 					<div style="height:55px;">
 						<span style="float:right; margin-bottom:20px;">
 							<span class="input-group" style="padding-right:10px; display:table-cell; vertical-align:top;">
-								<img src="img/loading.gif" id="dashboardloading" style="position:relative; top:-2px; display:none;">										
+								<img src="img/loading.gif" id="dashboardloading" style="position:relative; top:-2px; display:none;">
 							</span>
 							<span class="input-group" style="width:120px; display:table-cell;">
 								<span class="input-group-btn" id="ddledcolor" role="group">
@@ -120,8 +120,8 @@
 										<li class="liled"><a href="#"><div class="led" style="background-color:#4CFF00;"></div></a></li>
 										<li class="liled"><a href="#"><div class="led" style="background-color:#00FF90;"></div></a></li>
 										<li class="liled"><a href="#"><div class="led" style="background-color:#0094FF;"></div></a></li><br>
-										<li class="liled"><a href="#"><div class="led" style="background-color:#0000FF;"></div></a></li>										
-										<li class="liled"><a href="#"><div class="led" style="background-color:#FF006E;"></div></a></li>									
+										<li class="liled"><a href="#"><div class="led" style="background-color:#0000FF;"></div></a></li>
+										<li class="liled"><a href="#"><div class="led" style="background-color:#FF006E;"></div></a></li>
 										<li class="liled"><a href="#"><div class="led" style="background-color:#EBEBEB;"></div></a></li>
 									</ul>
 								</span>
@@ -134,7 +134,7 @@
 							</span>
 						</span>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-2">
 							<img id="latestpicture" src="pics/latest.jpg" width="100%">
@@ -143,11 +143,11 @@
 						<div class="col-xs-6 col-sm-3 col-md-2" style="text-align:center">
 							<h4>Saturation</h4>
 							<div style="font-size:32px;" id="statusstaturation"></div>
-							<div class="text-muted" id="statuslastfed">last fed</div><br><br>						
+							<div class="text-muted" id="statuslastfed">last fed</div><br><br>
 						</div><div class="col-xs-6 col-sm-3 col-md-2" style="text-align:center">
 							<h4>Food stored for</h4>
 							<div style="font-size:32px;" id="statusfoodavailabe"></div>
-							<div class="text-muted">days</div><br><br>					
+							<div class="text-muted">days</div><br><br>
 						</div>
 						<div class="col-xs-6 col-sm-3 col-md-2" style="text-align:center">
 							<h4>Automated feeding for</h4>
@@ -164,17 +164,17 @@
 							<div style="font-size:32px;" id="lightsvalue"></div>
 							<div class="text-muted" id="nextlighteventtime"></div><br><br>
 						</div>
-					</div>					
+					</div>
 				</div>
-				
-				
+
+
 				<!-- Daily Schedule -->
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="dailyschedule">
-					<h1 class="page-header">Daily Schedule</h1>					
+					<h1 class="page-header">Daily Schedule</h1>
 					<div style="height:55px;">
 						<span style="float:right; margin-bottom:20px;">
 							<span class="input-group" style="padding-right:10px; display:table-cell; vertical-align:top;">
-								<img src="img/loading.gif" id="scheduleloading" style="position:relative; top:-2px; display:none;">										
+								<img src="img/loading.gif" id="scheduleloading" style="position:relative; top:-2px; display:none;">
 							</span>
 							<span class="input-group" style="width:100px; display:table-cell;">
 								<span class="input-group-addon">Schedule</span>
@@ -189,7 +189,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<svg 
+							<svg
 								id="svgevents"
 								xml:space="preserve"
 								preserveAspectRatio="xMinYMin meet"
@@ -280,7 +280,7 @@
 									class="darknessline"
 									id="firstdarknessline"/>
 								<line x1="0" y1="0" x2="0" y2="20" class="eventnow" id="currenttime"/>
-								<g 
+								<g
 									id="markerprototype"
 									style="display:none;"
 									class="eventmarker"
@@ -288,12 +288,12 @@
 									<path
 										d="m 0,5 c 0,0 -4.673701,-7.407605 -4.656607,-9.976437 0.01709,-2.568832 2.187947,-4.679049 4.551697,-4.665588 2.36376,0.01346 4.76164,1.687267 4.75034,4.705973 -0.0113,3.018708 -4.64543,9.936052 -4.64543,9.936052 z"
 									/>
-									<image 
+									<image
 										id="imageprototype"
 										width="6"
 										height="6"
 										x="-3"
-										y="-8"											
+										y="-8"
 										xlink:href="img/food1.png"
 									/>
 									<rect
@@ -322,14 +322,14 @@
 											<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Take picture</a></li>
 										</ul>
 									</span>
-									
+
 									<div style="margin-bottom:20px;">
 										<span class="inputdescription">Time</span>
 										<span style="display:inline-block; position:relative; top:12px;">
 											<span class="input-group" style="width:130px">
 												<input type="text" class="form-control" id="eventhour">
 												<span class="input-group-addon">:</span>
-												<input type="text" class="form-control" id="eventminute">										
+												<input type="text" class="form-control" id="eventminute">
 											</span>
 										</span>
 									</div>
@@ -394,11 +394,11 @@
 										<button type="button" class="btn btn-success" id="btnediteventsubmit"><span class="glyphicon glyphicon-ok"></span>&nbsp;Save changes</button>
 									</div>
 								</div>
-							</div>								
+							</div>
 						</div>
-					</div>					
+					</div>
 				</div>
-				
+
 				<!-- Containers -->
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="containers">
 					<h1 class="page-header">Containers</h1>
@@ -406,11 +406,11 @@
 						<img src="img/loading.gif" id="containerloading" style="display:none;">
 						<button type="button" class="btn btn-default" id="btncalibrate"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;Calibrate</button>
 						<button type="button" id="btnmove" class="btn btn-default" style="display:none;"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Move there</button>
-						<button type="button" id="btnfeedcontainer" class="btn btn-success" style="display:none;"><span class="glyphicon glyphicon-cutlery"></span>&nbsp;Feed</button>						
+						<button type="button" id="btnfeedcontainer" class="btn btn-success" style="display:none;"><span class="glyphicon glyphicon-cutlery"></span>&nbsp;Feed</button>
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-6">
-							<svg 
+							<svg
 								id="svgcontainers"
 								viewBox="0 0 500 500">
 								<circle
@@ -420,32 +420,32 @@
 									r="160"
 									fill="#FFFFFF"
 								/>
-								<g 
+								<g
 									id="containerprototype"
 									class="container"
 									>
-									<path 
+									<path
 										id="containerprototype"
 										d="m 233.84607,86.384403 c 10.83644,-1.106827 20.4684,-1.171461 31.73141,-0.199467 L 273.9129,3.2434144 C 251.30937,1.6357405 246.36229,1.8869625 223.7074,3.9153015 z"
 									/>
-									<image 
+									<image
 										id="imageprototype"
 										width="34"
 										height="34"
 										x="233"
-										y="10"											
+										y="10"
 										xlink:href=""
 									/>
 									<path
 										id="status"
 										class="containerstatus"
-										d="m 237.9464,81.423982 c 7.32457,-0.914274 15.83005,-0.888665 23.52931,-0.07346 l 0.57048,-6.360425 c -8.29721,-1.068065 -15.18557,-1.081051 -24.85892,0.04546 z"											
+										d="m 237.9464,81.423982 c 7.32457,-0.914274 15.83005,-0.888665 23.52931,-0.07346 l 0.57048,-6.360425 c -8.29721,-1.068065 -15.18557,-1.081051 -24.85892,0.04546 z"
 									/>
 									<text
 										x="250"
 										y="103"
 										class="containerlabel"
-									>											
+									>
 										1
 									</text>
 								</g>
@@ -464,7 +464,7 @@
 						<div class="col-xs-12 col-sm-12 col-md-6">
 							<div class="panel panel-primary" style="display:none;" id="containerdetails">
 								<div class="panel-heading">
-									<h3 class="panel-title" id="foodDetailsTitle">Container 23</h3>									
+									<h3 class="panel-title" id="foodDetailsTitle">Container 23</h3>
 								</div>
 								<div class="panel-body">
 									<div style="margin-bottom:15px;">
@@ -507,7 +507,7 @@
 									<div id="ddpriority" class="dropdown" style="margin-bottom:15px;">
 										<span class="inputdescription">Priority</span>
 										<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-											<span id="ddprioritycurrent">Default</span>												
+											<span id="ddprioritycurrent">Default</span>
 											<span class="caret"></span>
 										</button>
 										<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -519,35 +519,35 @@
 									</div>
 									<span class="inputdescription">Last changed</span>
 									<span id="containerlastfilled">(Unknown)</span><br><br>
-										
+
 									<div id="diveditcontainer" style="text-align:right; display:none;">
 										<img src="img/loading.gif" id="containerbtnsubmitloading" style="display:none;">
 										<button type="button" class="btn btn-default" id="containerbtncancel">Cancel</button>
 										<button type="button" class="btn btn-success" id="containerbtnsubmit"><span class="glyphicon glyphicon-ok"></span>&nbsp;Save changes</button>
 									</div>
 								</div>
-							</div>								
-						</div>						
+							</div>
+						</div>
 					</div>
 				</div>
-				
+
 				<!-- Pictures -->
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="pictures">
-					<h1 class="page-header">Pictures</h1>					
+					<h1 class="page-header">Pictures</h1>
 					<div style="text-align:right; margin-bottom:20px;">
 						<img src="img/loading.gif" id="pictureloading" style="display:none;">
 						<button type="button" class="btn btn-default" id="btntakepicture"><span class="glyphicon glyphicon-camera"></span>&nbsp;Take picture</button>
 					</div>
-					<div class="fluid" id="imagecontainer" style="overflow:auto;">						
+					<div class="fluid" id="imagecontainer" style="overflow:auto;">
 						<div class="col-xs-6 col-sm-6 col-md-2" id="pictureprototype" style="display:none; padding:10px;">
 							<img src="" width="100%">
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- Log -->
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="log">
-					<h1 class="page-header">Log</h1>				
+					<h1 class="page-header">Log</h1>
 					<table class="table">
 						<thead>
 							<tr>
@@ -563,12 +563,12 @@
 						</tbody>
 					</table>
 				</div>
-				
+
 				<!-- About -->
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="about">
-					<h1 class="page-header">About</h1>					
+					<h1 class="page-header">About</h1>
 					Information about the project<br><br>
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, 
+					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
 				</div>
 			</div>
 		</div>
@@ -587,7 +587,7 @@
 		<script src="js/ImageView.js"></script>
 		<script src="js/Network.js"></script>
 		<script src="js/fishtank.js"></script>
-		
+
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/docs.min.js"></script>
 	</body>
