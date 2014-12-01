@@ -105,7 +105,7 @@ $('#containerbtnsubmit').click(function() {
 			containers += i + ',';
 	$.ajax({
 		type: "POST",
-		url:  network.server + 'api/updatecontainers',
+		url:  'api/updatecontainers',
 		data: "containers=" + containers + "&food=" + containerEditor.food + "&amount=" + containerEditor.amount + "&priority=" + containerEditor.priority,
 		success: function(data) {
 			$('#containerbtnsubmitloading').hide();
@@ -134,7 +134,7 @@ $('#btnmove').click(function(){
 	$("#containerloading").show();
 	$.ajax({
 		type: "POST",
-		url:  network.server + 'api/move',
+		url:  'api/move',
 		data: "to=" + feederView.getFirstSelectedIndex(),
 		success: function(data) {
 			if (data == 'loginrequired')
@@ -151,7 +151,7 @@ $('#btnfeedcontainer').click(function(){
 	$("#containerloading").show();
 	$.ajax({
 		type: "POST",
-		url:  network.server + 'api/dump',
+		url: 'api/dump',
 		data: "to=" + feederView.getFirstSelectedIndex(),
 		success: function(data) {
 			if (data == 'loginrequired')
@@ -193,7 +193,7 @@ $('#btnlogin').on("click",function (event) {
 $('#btnlogout').on("click",function (event) {
 	$.ajax({
 		type: "POST",
-		url:  network.server + 'api/logout',
+		url: 'api/logout',
 		success: function(data) {
 			serverStatus.rawdata.user = null;
 			serverStatus.update()
@@ -219,7 +219,7 @@ $('#loginform').on('keypress',function(event) {
 		
 		$.ajax({
 			type: "POST",
-			url:  network.server + 'api/login',
+			url:  'api/login',
 			data: "username=" + username + '&password=' + $('#inputpassword').val(),
 			success: function(data) {
 				if (data == 'ok')
@@ -241,7 +241,7 @@ $('#btnswitchlights').click(function(event) {
 	$("#dashboardloading").show();
 	$.ajax({
 		type: "POST",
-		url:  network.server + 'api/switchlights',			
+		url:  'api/switchlights',			
 		success: function(data) {
 			if (data == 'loginrequired')
 				alert('You need to be logged in to do this.');
@@ -262,7 +262,7 @@ $('#btnflashled').click(function(event) {
 	$("#dashboardloading").show();
 	$.ajax({
 		type: "POST",
-		url: network.server + 'api/flashled',
+		url: 'api/flashled',
 		data: 'color=' + color,
 		success: function(data) {
 			$("#dashboardloading").hide();	
@@ -277,7 +277,7 @@ $('#btncalibrate').click(function(event) {
 	$("#containerloading").show();
 	$.ajax({
 		type: "POST",
-		url: network.server + 'api/calibrate',
+		url: 'api/calibrate',
 		success: function(data) {
 			if (data == 'loginrequired')
 				alert('You need to be logged in to do this.');
