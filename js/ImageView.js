@@ -42,7 +42,7 @@ $('#btntakepicture').click(function() {
 	$('#pictureloading').show();
 	$.ajax({
 		type: "POST",
-		url:  network.server + 'api/takepicture',
+		url: 'api/takepicture',
 		success: function(data) {
 			network.updateStatus();
 			$('#pictureloading').hide();
