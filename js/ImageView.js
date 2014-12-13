@@ -4,7 +4,7 @@ function ImageView() {
 	this.images = new Array();
 	var proto = $('#pictureprototype')[0];
 	var container = $('#imagecontainer')[0];
-	this.imgserver = 'http://marian42.no-ip.biz:81/fishtank/pics/'
+	this.imgserver = '/pics/'
 	for (var i = 0; i < this.displayCount; i++) {
 		this.images[i] = new Object();
 		this.images[i].display = false;
