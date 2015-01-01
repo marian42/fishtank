@@ -17,7 +17,6 @@ class Lights(object):
 		# LED for Debugging
 		GPIO.setmode(GPIO.BOARD)
 		self.ledpin = 16
-		#GPIO.setmode(self.ledpin)
 		GPIO.setup(self.ledpin, GPIO.OUT)
 	
 	def load(self, ini):
