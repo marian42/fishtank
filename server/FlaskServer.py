@@ -33,10 +33,12 @@ class FlaskServer(object):
 		#log = logging.getLogger('werkzeug')
 		#log.setLevel(logging.ERROR)
 		
+		logging.basicConfig(filename = 'error.log', level = logging.DEBUG)
+		
 		self.login_manager = LoginManager()
 		self.server = Flask(__name__, static_folder='../', static_url_path='')
 		self.server.secret_key = '123456123456'
-		self.login_manager.init_app(self.server)		
+		self.login_manager.init_app(self.server)
 		start_new_thread(self.server.run, ("0.0.0.0",), {"threaded": True})
 			# 0.0.0.0 - visible for outside network
 			# threaded: handle multiple requests at once

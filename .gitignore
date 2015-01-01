@@ -2,3 +2,4 @@
 pics/
 server/state.ini
 server/users.ini
+server/error.log
