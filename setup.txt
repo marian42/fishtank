@@ -1,0 +1,11 @@
+GPIO
+	setup wirinPi as explained here:
+	http://www.raspberrypi.org/forums/viewtopic.php?t=32177&p=483706
+	
+	Add pin 17 here in /etc/rc.local (-> reboot)	
+		sudo -u pi /usr/local/bin/gpio export 17 out
+	
+Apache
+	Make it listen on the port that is used (5000)
+		add Listen 500 to
+		/etc/apache2/ports.conf
