@@ -165,7 +165,7 @@ $('#btnediteventdelete').click(function() {
 	$('#eventbtnsubmitloading').show();
 	$.ajax({
 		type: "POST",
-		url:  network.server + 'api/deleteevent',
+		url: 'api/deleteevent',
 		data: "id=" + eventEditor.event,		
 		success: function(data) {
 			if (data == 'loginrequired')
@@ -185,7 +185,7 @@ $('#btnediteventsubmit').click(function() {
 	$('#eventbtnsubmitloading').show();
 	$.ajax({
 		type: "POST",
-		url:  network.server + 'api/updateevent',
+		url: 'api/updateevent',
 		data: "type=" + eventEditor.type + "&event=" + eventEditor.event + "&day=" + eventEditor.getDayInt() + "&hour=" + $('#eventhour')[0].value + '&minute=' + $('#eventminute')[0].value + '&food=' + eventEditor.getFoodInt() + '&maxsaturation=' + $('#eventmaxsaturation')[0].value 
 				+ '&minamount=' + $('#eventminamount')[0].value + '&maxamount=' + $('#eventmaxamount')[0].value + '&value=' + $('#eventlight')[0].checked,		
 		success: function(data) {

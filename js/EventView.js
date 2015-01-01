@@ -153,7 +153,7 @@ $('#btnschedule').click(function() {
 	$('#scheduleloading').show();
 	$.ajax({
 		type: "POST",
-		url: network.server + 'api/enableschedule',
+		url: 'api/enableschedule',
 		data: "value=" + (!eventView.scheduling),
 		success: function(data) {
 			network.updateStatus();
