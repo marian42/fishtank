@@ -55,8 +55,8 @@ class Log(object):
 			print "Error while writing to the database"
 		if level >= self.minPushLevel:
 			if (image == 0):
-				start_new_thread(self.pushbullet.pushNote,(self.device['iden'],title if title != None else 'Fishtank (' + self.loglevels[level] + ')',message,))
+				start_new_thread(self.pushbullet.pushNote,(self.device['iden'],title if title != None else 'Fishtank (' + self.loglevels[level] + ')',message))
 			else:
-				start_new_thread(self.pushbullet.pushFile,(self.device['iden'],title if title != None else 'Fishtank (' + self.loglevels[level] + ')', message, open(FishTank.FishTank.instance.camera.getPictureFilename(image), "rb"),));
+				start_new_thread(self.pushbullet.pushFile,(self.device['iden'],title if title != None else 'Fishtank (' + self.loglevels[level] + ')', message, open(FishTank.FishTank.instance.camera.getPictureFilename(image), "rb")));
 		FishTank.FishTank.instance.increaseVersion()
 		FishTank.FishTank.instance.save()
