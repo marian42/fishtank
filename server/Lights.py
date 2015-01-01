@@ -1,7 +1,6 @@
 from elro import RemoteSwitch
 import FishTank
 from subprocess import call
-import RPi.GPIO as GPIO
 
 class Lights(object):
 	def __init__(self):
@@ -10,14 +9,9 @@ class Lights(object):
 		self.value = False
 		if not self.callScript:
 			key = [0,0,0,0,0]	
-			pin = 11
+			pin = 17
 			device = 1
-			self.remoteswitch = RemoteSwitch(device = device, key=key, pin=pin)
-		
-		# LED for Debugging
-		GPIO.setmode(GPIO.BOARD)
-		self.ledpin = 16
-		GPIO.setup(self.ledpin, GPIO.OUT)
+			self.remoteswitch = RemoteSwitch(unit_code = device, system_code=key, pin=pin)
 	
 	def load(self, ini):
 		section = 'lights'
@@ -33,8 +27,6 @@ class Lights(object):
 		ini.set(section,'value',str(self.value))
 	
 	def broadcast(self):
-		#LED for Debugging
-		GPIO.output(self.ledpin, self.value)
 		if not self.callScript:
 			if self.value:
 				self.remoteswitch.switchOn()
