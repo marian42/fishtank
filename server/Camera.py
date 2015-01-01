@@ -13,7 +13,7 @@ class Camera(object):
 		
 	def takePicture(self, save = True):
 		self.fishtank.updateStatus('Taking picture...')
-		exitcode = call('fswebcam --no-banner --skip 3 -r 640x480 --jpeg 70 ' + self.folder + self.latest)
+		exitcode = call('fswebcam --no-banner --skip 3 -r 640x480 --jpeg 70 ' + self.folder + self.latest, shell=True)
 		if (save and exitcode == 0):
 			self.fishtank.updateStatus('Saving picture...')			
 			self.counter += 1
