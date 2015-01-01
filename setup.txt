@@ -9,3 +9,8 @@ Apache
 	Make it listen on the port that is used (5000)
 		add Listen 500 to
 		/etc/apache2/ports.conf
+		
+	Create user and group used in fishtank-apache.config (user1, group1)
+	Add this user to the group that owns /dev/ttyAMA0 (dialout)
+	
+	Move fishtank-apache.config to /etc/apache2/sites-enabled

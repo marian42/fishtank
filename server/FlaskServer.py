@@ -30,8 +30,6 @@ class FlaskServer(object):
 		
 		self.fishtank = fishtank
 		self.log = log
-		#log = logging.getLogger('werkzeug')
-		#log.setLevel(logging.ERROR)
 		
 		logging.basicConfig(filename = 'error.log', level = logging.DEBUG)
 		
@@ -39,11 +37,12 @@ class FlaskServer(object):
 		self.server = Flask(__name__, static_folder='../', static_url_path='')
 		self.server.secret_key = '123456123456'
 		self.login_manager.init_app(self.server)
-		start_new_thread(self.server.run, ("0.0.0.0",), {"threaded": True})
+		#Enable this only in development mode
+		#start_new_thread(self.server.run, ("0.0.0.0",), {"threaded": True})
 			# 0.0.0.0 - visible for outside network
 			# threaded: handle multiple requests at once
 		self.server.config.update(PROPAGATE_EXCEPTIONS = True)
-			# show exceptions on shell
+			# show exceptions on shell/log
 		
 		@self.login_manager.user_loader
 		def load_user(userid):

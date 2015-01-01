@@ -7,11 +7,15 @@ os.chdir("/var/www/fishtank/server/")
 INIFILENAME = 'state.ini'
 
 log = Log.Log()		
-fishtank = FishTank.FishTank(INIFILENAME,log)
-flaskserver = FlaskServer(fishtank,log)
+fishtank = FishTank.FishTank(INIFILENAME, log)
+flaskserver = FlaskServer(fishtank, log)
+app = flaskserver.server
 
 print "Ready"
 
-while (True):
-	time.sleep(1)
-	fishtank.tick()
+def tick():
+	while True:
+		time.sleep(1)
+		fishtank.tick()
+
+start_new_thread(tick, ())
