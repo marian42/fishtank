@@ -1,3 +1,10 @@
+.picturecontainer{
+	background-image: url("/img/loading.gif");
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 194px;
+}
+
 .led {
 	border-radius: 50%;
 	width: 12px;

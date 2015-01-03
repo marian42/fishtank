@@ -24,9 +24,12 @@ ImageView.prototype.update = function(count) {
 		this.images[p].div.style.display = 'block';
 		this.images[p].img.setAttribute('src',this.imgserver + 'img' + i + '.jpg');
 		this.images[p].id = i;
-		if (p < this.count - oldcount) {
+		if (p < this.count - oldcount && oldcount != 0) {
 			$(this.images[p].img).hide();
-			$(this.images[p].img).show(400);
+			var img = $(this.images[p].img);
+			img.load(function() {
+				img.show(400);
+			});
 		}
 		p++;
 	}
