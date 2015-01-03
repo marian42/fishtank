@@ -1,5 +1,5 @@
-from subprocess import call
-import shutil
+import pygame.camera
+import pygame.image
 
 class Camera(object):
 	def __init__(self, fishtank):
@@ -10,21 +10,25 @@ class Camera(object):
 		self.counter = 0
 		self.fishtank = fishtank
 		Camera.instance = self
+
+		pygame.camera.init()
+		self.cam = pygame.camera.Camera(pygame.camera.list_cameras()[0])
 		
-	def takePicture(self, save = True):
+	def takePicture(self):
 		self.fishtank.updateStatus('Taking picture...')
-		exitcode = call('fswebcam --no-banner --skip 3 -r 640x480 --jpeg 70 ' + self.folder + self.latest, shell=True)
-		if (save and exitcode == 0):
-			self.fishtank.updateStatus('Saving picture...')			
-			self.counter += 1
-			shutil.copyfile(self.folder + self.latest, self.folder + self.filename.format(str(self.counter)))
-			self.fishtank.updateStatus('Ready')
-			return self.counter
+		
+		self.counter += 1
+		
+		self.cam.start()
+		img = self.cam.get_image()
+		self.cam.stop()
+		
+		self.fishtank.updateStatus('Saving picture...')			
+		pygame.image.save(img, self.folder + self.filename.format(str(self.counter)))
+			
+		
 		self.fishtank.updateStatus('Ready')
-		return -1
-		
-	'''def getPicturUrl(self, index):
-		return 'http://192.168.2.9/fishtank/' + sef.serverfolder + self.filename.format(index)'''
-		
+		return self.counter
+	
 	def getPictureFilename(self, index):
 		return self.folder + self.filename.format(str(index))
