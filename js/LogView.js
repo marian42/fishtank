@@ -22,10 +22,18 @@ LogView.prototype.createTable = function(data) {
 		
 		cell = row.insertCell(0);
 		cell.className += " hidden-xs";
-		cell.innerHTML = (data[i][4] == 0 ? '' : data[i][4]);	
+		if (data[i][4] != 0) {
+			link = document.createElement('span');
+			link.innerHTML = data[i][4];
+			link.onclick = makeShowImage(data[i][4]);
+			cell.appendChild(link);
+		}
 		
 		cell = row.insertCell(0);
 		cell.innerHTML = data[i][2];
+		if (data[i][4] != 0) {
+			cell.onclick = makeShowImage(data[i][4]);
+		}
 		
 		cell = row.insertCell(0);
 		cell.innerHTML = '<span class="label label-' + this.logcolor[data[i][3]] + '">' + this.loglevel[data[i][3]] + '</span>'; 		
