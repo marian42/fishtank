@@ -185,9 +185,12 @@ class FlaskServer(object):
 		def login():
 			user = load_user(request.values.get('username'))
 			m = hashlib.sha512()
-			m.update(request.values.get('password'))
-			#print m.hexdigest()
-			if user and user.hash == m.hexdigest():				
+			hashfailed = False
+			try:
+				m.update(request.values.get('password'))
+			except:
+				hashfailed = True
+			if not hashfailed and user and user.hash == m.hexdigest():
 				login_user(user, remember = True)
 				print('login successful (' + user.name + ')')
 				return 'ok'
