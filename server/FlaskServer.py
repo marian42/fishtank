@@ -165,8 +165,9 @@ class FlaskServer(object):
 				return
 			
 			oldsaturation = self.fishtank.getSaturation()
-			self.fishtank.setSaturation(oldsaturation + container.amount)
-			container.empty()			
+			if container.amount != 0:
+				self.fishtank.setSaturation(oldsaturation + container.amount)
+			container.empty()
 			self.log.write(title= "Fed fish", message = 'Manually fed container ' + str(container.index + 1) + ' (Food ' + str(container.food) + '), Saturation: ' + "{0:.1f}".format(oldsaturation) + ' -> ' + "{0:.1f}".format(oldsaturation + container.amount) + ' (+' + "{0:.1f}".format(container.amount) + ')', level = 2, startedby = current_user.id)
 			return 'ok'
 			
