@@ -61,7 +61,12 @@ class FlaskServer(object):
 			data['user'] = current_user.name if current_user.is_authenticated() else None
 			return Response(json.dumps(data),  mimetype='application/json')
 			
-		@self.server.route("/api/updatecontainers", methods=['POST'])		
+		@self.server.route("/api/log")
+		def getLog():
+			data = self.log.getRecentEntries(count = int(request.args.get('entries')), minlevel = int(request.args.get('minlevel')), page = int(request.args.get('page')))
+			return Response(json.dumps(data), mimetype='application/json')
+			
+		@self.server.route("/api/updatecontainers", methods=['POST'])
 		@login_required
 		def updateContainers():
 			containers = string.split(request.form['containers'],',')

@@ -3,13 +3,44 @@ function LogView() {
 	this.loglevel = ['Log','Info','Event','Warning','Error','Critical Error'];
 	this.logcolor = ['default', 'info', 'primary', 'warning', 'danger', 'danger'];
 	this.data = 0;
+	
+	this.minlevel = 0;
+	this.page = 1;
+	LogView.instance = this;
+}
+
+LogView.prototype.refresh = function() {
+	$('#ddloglevelcurrent')[0].innerHTML = this.loglevel[this.minlevel];
+	if (this.page < 1)
+		this.page = 1;
+	$('#currentpage')[0].innerHTML = this.page;
+	
+	if (this.minlevel == 0 && this.page == 1) {
+		this.createTable(this.defaultdata);
+		return;
+	}
+	$('#logloading').show();
+	$.ajax({
+		type: "GET",
+		url: 'api/log',
+		data: "entries=15&minlevel=" + this.minlevel + '&page=' + this.page,		
+		success: function(data) {
+			$('#logloading').hide();
+			LogView.instance.createTable(data);			
+		},
+		error: function(){			
+			$('#logloading').hide();
+			alert("error!");
+		}
+	});
 }
 
 LogView.prototype.createTable = function(data) {
-	if (data != null)
-		this.data = data;
-	if (this.data == null)
+	if (data == null)
 		return;
+	this.data = data;
+	if (this.page == 1 && this.minlevel == 0)
+		this.defaultdata = data;
 	
 	while(this.table.hasChildNodes())
 		this.table.removeChild(this.table.firstChild);
@@ -57,3 +88,13 @@ LogView.prototype.updateTimestamps = function() {
 		$('#timestamp' + this.data[i][0])[0].innerHTML = '<span class="hidden-xs" title="' + moment(date).calendar() + '" class="tooltip2"><span>' + moment(date).fromNow() + '</span></span><span class="visible-xs" title="' + moment(date).fromNow() + '" class="tooltip2"><span>' + moment(date).format('h:mm') + '</span></span>';
 	}
 }
+
+$('#btnnextpage').click(function() {
+	LogView.instance.page++;
+	LogView.instance.refresh();
+});
+
+$('#btnprevpage').click(function() {
+	LogView.instance.page--;
+	LogView.instance.refresh();
+})

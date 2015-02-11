@@ -86,6 +86,11 @@ $(".dropdown-menu li a").click( function(event) {
 		$('#ledcolorpreview')[0].style.backgroundColor = ledcolor;
 	}
 	
+	if ($(this)[0].parentNode.parentNode.parentNode.id == 'ddloglevel') {
+		logView.minlevel = index;
+		logView.refresh();
+	}
+	
 	event.preventDefault();
 });
 

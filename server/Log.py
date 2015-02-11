@@ -22,12 +22,13 @@ class Log(object):
 	def connectToDB(self):
 		return MySQLdb.connect("localhost", "fishtank", "raspberry", "fishtank")
 	
-	def getRecentEntries(self, count = -1):		
+	def getRecentEntries(self, count = -1, minlevel = 0, page = 1):
 		loglines = None
 		db = self.connectToDB()
 		try:
+			offset = max(0, count * (page - 1))
 			curs = db.cursor()
-			curs.execute ("SELECT * FROM log ORDER BY time DESC" + (" LIMIT " + str(count) if count != -1 else ""))
+			curs.execute ("SELECT * FROM log WHERE level >= " + str(minlevel) + " ORDER BY time DESC" + (" LIMIT " + str(count) if count != -1 else "") + " OFFSET " + str(offset))
 			db.close()
 			loglines = list(curs.fetchall())
 		except:
