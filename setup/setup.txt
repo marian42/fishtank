@@ -14,3 +14,5 @@ Apache
 	Add this user to the group that owns /dev/ttyAMA0 (dialout)
 	
 	Move fishtank-apache.config to /etc/apache2/sites-enabled
+	
+	Errors: /var/log/apache2/error.log
