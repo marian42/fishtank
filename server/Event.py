@@ -1,8 +1,9 @@
-import datetime
+import time, datetime
 import FishTank
 import Log
 import fishfeeder
 import Lights
+import sys, traceback
 
 class Event(object):
 	def __init__(self):
@@ -95,8 +96,9 @@ class Event(object):
 	def tryExecute(self):
 		try:
 			self.execute()
-		except:
-			Log.Log.instance.write(message = 'Unexpected error while executing event (' + self.getName() + ')', level = 4, startedby = 'event');		
+		except Exception as exception:
+			Log.Log.instance.write(message = 'Unexpected error while executing event (' + self.getName() + ')', level = 4, startedby = 'event');
+			traceback.print_exc(file=sys.stdout)
 
 class FeedEvent(Event):
 	def __init__(self):
@@ -185,7 +187,7 @@ class FeedEvent(Event):
 		FishTank.FishTank.instance.increaseVersion()
 		
 	def getName(self):
-		return 'Feed Event'	
+		return 'Feed Event'
 		
 class LightEvent(Event):
 	def __init__(self):

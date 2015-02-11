@@ -1,7 +1,6 @@
 from thread import *
 from flask import *
 import json
-import logging
 import string
 import datetime
 import time
@@ -30,8 +29,6 @@ class FlaskServer(object):
 		
 		self.fishtank = fishtank
 		self.log = log
-		
-		logging.basicConfig(filename = 'error.log', level = logging.DEBUG)
 		
 		self.login_manager = LoginManager()
 		self.server = Flask(__name__, static_folder='../', static_url_path='')
