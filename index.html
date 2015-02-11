@@ -559,26 +559,28 @@
 				<!-- Log -->
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="log">
 					<h1 class="page-header">Log</h1>
-					<div style="margin-top:-10px; margin-bottom:10px; position:relative;">
-						<span>Filter:&nbsp;</span>
-						<span id="ddloglevel" class="dropdown">
-							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-								<span id="ddloglevelcurrent">Log</span>
-								<span class="caret"></span>
-							</button>
-							
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-default">Log</span></a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-info">Info</span></a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-primary">Event</span></a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-warning">Warning</span></a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-danger">Error</span></a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-danger">Critical Error</span></a></li>							
-							</ul>
-						</span>					
+					<div style="margin-top:-20px; margin-bottom:20px; position:relative;">
+						<span style="display:inline-block; position:relative; top:13px;">
+							<span class="input-group" style="width:100px;">
+								<span class="input-group-addon">Filter:</span>
+								<span id="ddloglevel" class="input-group-btn dropdown">
+									<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+										<span id="ddloglevelcurrent">Log</span>
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+										<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-default">Log</span></a></li>
+										<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-info">Info</span></a></li>
+										<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-primary">Event</span></a></li>
+										<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-warning">Warning</span></a></li>
+										<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-danger">Error</span></a></li>
+										<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-danger">Critical Error</span></a></li>
+									</ul>
+								</span>
+							</span>
+						</span>
 						
-						<span>&nbsp;Page:&nbsp;</span>
-						<span style="display:inline-block; position:relative; top: 12px;">
+						<span style="display:inline-block; position:relative; top: 13px;">
 							<span class="input-group" style="width:100px">
 								<div class="input-group-btn" >
 									<div class="btn-group"> 
@@ -598,9 +600,38 @@
 							</span>
 						</span>
 						
+						<span style="display:inline-block; position:relative;">							
+							<button class="btn btn-default" id="btnaddnote" type="button" style="display:none;">
+								<span class="glyphicon glyphicon glyphicon-pencil">
+							</button>
+						</span>
+						
 						<span class="input-group" style="display:inline-block; vertical-align:top; top:13px; right:0px; position:absolute;">
 							<img src="img/loading.gif" id="logloading" style="position:relative; top:-2px; display:none;">
 						</span>
+					</div>
+					
+					<div id="formaddnote" style="margin-bottom:10px; display:none;">
+						<div class="input-group">
+							<span class="input-group-btn dropdown" id="ddnotelevel">
+								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+									<span id="ddnotelevelcurrent">Log</span>
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-default">Log</span></a></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-info">Info</span></a></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-primary">Event</span></a></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-warning">Warning</span></a></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-danger">Error</span></a></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="label label-danger">Critical Error</span></a></li>
+								</ul>
+							</span>
+							<input id="notetext" type="text" class="form-control" placeholder="Note">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-success" id="btnsubmitnote"><span class="glyphicon glyphicon-ok"></span>&nbsp;Add</button>
+							</span>
+						</div>
 					</div>
 					
 					<table class="table">

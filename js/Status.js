@@ -29,12 +29,14 @@ Status.prototype.update = function() {
 		$('#btnlogin').hide();
 		$('#currentuser').show();
 		$('#currentuser')[0].innerHTML = data.user;
-		$('#btnlogout').show();	
+		$('#btnlogout').show();
+		$('#btnaddnote').show();
 	}
 	else {
 		$('#btnlogin').show();
 		$('#currentuser').hide();
-		$('#btnlogout').hide();	
+		$('#btnlogout').hide();
+		$('#btnaddnote').hide();
 	}
 	this.lights = data.lights
 	$('#lightsvalue')[0].innerHTML = data.lights ? 'On' : 'Off'

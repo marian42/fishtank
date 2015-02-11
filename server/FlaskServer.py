@@ -63,6 +63,12 @@ class FlaskServer(object):
 			data = self.log.getRecentEntries(count = int(request.args.get('entries')), minlevel = int(request.args.get('minlevel')), page = int(request.args.get('page')))
 			return Response(json.dumps(data), mimetype='application/json')
 			
+		@self.server.route("/api/note", methods=['POST'])
+		@login_required
+		def addLogNote():
+			self.log.write('Note: ' + request.form['note'], level = int(request.form['level']), image = 0, startedby = current_user.id, title = 'Note');
+			return 'ok'
+		
 		@self.server.route("/api/updatecontainers", methods=['POST'])
 		@login_required
 		def updateContainers():

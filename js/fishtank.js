@@ -91,6 +91,11 @@ $(".dropdown-menu li a").click( function(event) {
 		logView.refresh();
 	}
 	
+	if ($(this)[0].parentNode.parentNode.parentNode.id == 'ddnotelevel') {
+		$('#ddnotelevelcurrent')[0].innerHTML = logView.loglevel[index];
+		logView.notelevel = index;
+	}
+	
 	event.preventDefault();
 });
 

@@ -6,6 +6,7 @@ function LogView() {
 	
 	this.minlevel = 0;
 	this.page = 1;
+	this.notelevel = 0;
 	LogView.instance = this;
 }
 
@@ -97,4 +98,33 @@ $('#btnnextpage').click(function() {
 $('#btnprevpage').click(function() {
 	LogView.instance.page--;
 	LogView.instance.refresh();
-})
+});
+
+$('#btnaddnote').click(function() {
+	if ($('#formaddnote').is(":visible")) {
+		$('#formaddnote').hide();
+	} else {
+		$('#formaddnote').show();
+		$('#notetext').focus();
+		$('#ddnotelevelcurrent')[0].innerHTML = LogView.instance.loglevel[LogLevel.instance.notelevel];
+	}
+});
+
+$('#btnsubmitnote').click(function() {
+	$('#logloading').show();
+	$('#formaddnote').hide();
+	$.ajax({
+		type: "POST",
+		url: 'api/note',
+		data: "level=" + LogView.instance.notelevel + '&note=' + $('#notetext').val(),
+		success: function(data) {
+			$('#logloading').hide();
+			$('#notetext').val('');
+			LogView.instance.notelevel = 0;
+		},
+		error: function(){
+			$('#logloading').hide();
+			alert("error!");
+		}
+	});
+});
