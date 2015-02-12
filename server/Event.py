@@ -165,7 +165,7 @@ class FeedEvent(Event):
 	def execute(self):
 		self.executed = True
 		if (FishTank.FishTank.instance.getSaturation() > self.maxSaturation):
-			Log.Log.instance.write(message = 'Automatic feeding skipped because fish are not hungry (Saturation: ' + str(FishTank.FishTank.instance.getSaturation()) + ', ' + str(self.maxSaturation) + ' or lower required).', level = 1, startedby = 'event')
+			Log.Log.instance.write(message = 'Automatic feeding skipped because fish are not hungry (Saturation: ' + '{0:.1f}'.format(FishTank.FishTank.instance.getSaturation()) + ', ' + str(self.maxSaturation) + ' or lower required).', level = 1, startedby = 'event')
 			return
 		candidates = self.getContainerCandidates()
 		if (len(candidates) == 0):
