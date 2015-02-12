@@ -1,34 +1,34 @@
 import pygame.camera
 import pygame.image
 
-class Camera(object):
-	def __init__(self, fishtank):
-		self.folder = '/var/www/fishtank/pics/'
-		self.serverfolder = 'pics/'
-		self.latest = 'latest.jpg'
-		self.filename = 'img{}.jpg'
-		self.counter = 0
-		self.fishtank = fishtank
-		Camera.instance = self
+import FishTank
 
-		pygame.camera.init()
-		self.cam = pygame.camera.Camera(pygame.camera.list_cameras()[0])
+folder = '/var/www/fishtank/pics/'
+serverfolder = 'pics/'
+latest = 'latest.jpg'
+filename = 'img{}.jpg'
+counter = 0
+
+pygame.camera.init()
+
+cam = pygame.camera.Camera(pygame.camera.list_cameras()[0])
 		
-	def takePicture(self):
-		self.fishtank.updateStatus('Taking picture...')
-		
-		self.counter += 1
-		
-		self.cam.start()
-		img = self.cam.get_image()
-		self.cam.stop()
-		
-		self.fishtank.updateStatus('Saving picture...')			
-		pygame.image.save(img, self.folder + self.filename.format(str(self.counter)))
-			
-		
-		self.fishtank.updateStatus('Ready')
-		return self.counter
+def takePicture():
+	global counter
+
+	FishTank.updateStatus('Taking picture...')
 	
-	def getPictureFilename(self, index):
-		return self.folder + self.filename.format(str(index))
+	counter += 1
+	
+	cam.start()
+	img = cam.get_image()
+	cam.stop()
+	
+	FishTank.updateStatus('Saving picture...')
+	pygame.image.save(img, folder + filename.format(str(counter)))
+	
+	FishTank.updateStatus('Ready')
+	return counter
+
+def getPictureFilename(self, index):
+	return folder + filename.format(str(index))
