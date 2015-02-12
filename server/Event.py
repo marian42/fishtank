@@ -3,7 +3,7 @@ import sys, traceback
 
 import FishTank
 import Log
-import fishfeeder
+import FishFeeder
 import Lights
 import Camera
 import FoodStore
@@ -149,7 +149,7 @@ class FeedEvent(Event):
 
 	def getContainerCandidates(self):
 		candidates = [container for container in FoodStore.container if (container.food != 0 and container.amount != 0 and container.priority != 3 and self.food[container.food-1] and container.amount >= self.minAmount and container.amount <= self.maxAmount)]
-		candidates = sorted(candidates, key = lambda container: (container.priority, container.filled, container.index - fishfeeder.position if container.index >= fishfeeder.position else container.index - fishfeeder.position + FoodStore.size))
+		candidates = sorted(candidates, key = lambda container: (container.priority, container.filled, container.index - FishFeeder.position if container.index >= FishFeeder.position else container.index - FishFeeder.position + FoodStore.size))
 		return candidates
 
 	def getNextExecution(self, after = None):
@@ -173,11 +173,11 @@ class FeedEvent(Event):
 			Log.write(message = 'Automatic feeding failed because no matching food is available.', level = 4, startedby = 'event')
 			return
 		candidate = candidates[0]
-		fishfeeder.moveToAndDump(candidate.index)
+		FishFeeder.moveToAndDump(candidate.index)
 		FishTank.updateStatus('Waiting...')
 		time.sleep(7)
 		imageId = Camera.takePicture();
-		if (fishfeeder.status == fishfeeder.FishFeederStatus.ERROR):
+		if (FishFeeder.status == FishFeeder.FishFeederStatus.ERROR):
 			Log.write(message = 'Automatic feeding failed (mechanical failure).', level = 5, image = imageId, startedby = 'event')
 			return
 

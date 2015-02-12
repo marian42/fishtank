@@ -6,7 +6,7 @@ import time
 import FoodStore
 import EventList
 import Camera
-import fishfeeder
+import FishFeeder
 import Lights
 import Log
 
@@ -17,7 +17,7 @@ status = 'Ready'
 
 inifilename = 'state.ini'
 	
-fishfeeder.position = fishfeeder.getPosition()
+FishFeeder.position = FishFeeder.getPosition()
 
 def save():
 	status = configparser.ConfigParser()
@@ -70,7 +70,7 @@ def getSerializeable():
 		'log': Log.getRecentEntries(15),
 		'imagecount': Camera.counter,
 		'status': status,
-		'feeder': fishfeeder.getSerializeable(),
+		'feeder': FishFeeder.getSerializeable(),
 		'foodamount': getFoodAmount(),
 		'autofeedamount': getAutoFeedAmount(),
 		'nexteventtype': nextEvent.type,
@@ -80,15 +80,15 @@ def getSerializeable():
 		'scheduling': EventList.enabled
 	}
 	
-def onfishfeederUpdate(oldstatus, newstatus):
+def onFishFeederUpdate(oldstatus, newstatus):
 	global status
 
-	if (newstatus == fishfeeder.FishFeederStatus.CALIBRATING):
-		log.write(message = 'Calibrating fish feeder.', level = 1, startedby = 'fishfeeder')
-	status = fishfeeder.FishFeederStatus.getMessage(newstatus)
+	if (newstatus == FishFeeder.FishFeederStatus.CALIBRATING):
+		log.write(message = 'Calibrating fish feeder.', level = 1, startedby = 'FishFeeder')
+	status = FishFeeder.FishFeederStatus.getMessage(newstatus)
 	increaseVersion()
 
-fishfeeder.setOnChangeStatusListener(onfishfeederUpdate)
+FishFeeder.setOnChangeStatusListener(onFishFeederUpdate)
 	
 def getSaturation():
 	days = (datetime.datetime.now() - saturationchanged).seconds / (60.0 * 60.0 * 24.0)

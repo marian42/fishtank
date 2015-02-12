@@ -17,7 +17,7 @@ import FishTank
 import FoodStore
 import Camera
 import Lights
-import fishfeeder
+import FishFeeder
 
 class User(UserMixin):
     def __init__(self, username, hash):
@@ -138,13 +138,13 @@ def switchLights():
 
 @app.route("/api/flashled", methods=['POST'])
 def flashLED():
-	fishfeeder.flashHex(request.form['color'],1)
+	FishFeeder.flashHex(request.form['color'],1)
 	return 'ok'
 
 @app.route("/api/calibrate", methods=['POST'])
 @login_required
 def calibrate():
-	fishfeeder.calibrate()
+	FishFeeder.calibrate()
 	Log.write(message = 'Calibrated feeder ', level = 1, startedby = current_user.id)
 	return 'ok'
 
@@ -162,7 +162,7 @@ def checkForUpdate():
 @app.route("/api/move", methods=['POST'])
 @login_required
 def moveFeeder():
-	fishfeeder.moveTo(int(request.form['to']))
+	FishFeeder.moveTo(int(request.form['to']))
 	Log.write(message = 'Moved feeder to position ' + str(int(request.form['to'])+1), level = 1, startedby = current_user.id)
 	return 'ok'
 
@@ -170,8 +170,8 @@ def moveFeeder():
 @login_required
 def dump():
 	container = FoodStore.container[int(request.form['to'])]
-	fishfeeder.moveToAndDump(int(request.form['to']))
-	if (fishfeeder.status == fishfeeder.FishFeederStatus.ERROR):
+	FishFeeder.moveToAndDump(int(request.form['to']))
+	if (FishFeeder.status == FishFeeder.FishFeederStatus.ERROR):
 		Log.write(message = 'Manual feeding failed (mechanical failure).', level = 3, image = imageId, startedby = current_user.id)
 		return
 
