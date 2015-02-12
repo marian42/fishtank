@@ -123,7 +123,7 @@ $('#btnswitchlights').click(function(event) {
 	});
 });
 
-$("#ledcolorpreview .dropdown-menu li a").click( function(event) {
+$("#ddledcolor .dropdown-menu li a").click( function(event) {
 	var index = $($(this)[0].parentNode.parentNode.children).index($(this)[0].parentNode);
 	
 	ledcolor = $(this)[0].children[0].style.backgroundColor;
