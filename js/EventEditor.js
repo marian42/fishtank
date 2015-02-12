@@ -171,13 +171,12 @@ var EventEditor = {
 		$.ajax({
 			type: "POST",
 			url: 'api/deleteevent',
-			data: "id=" + EventEditor.event,
+			data: {id: EventEditor.event},
 			success: function(data) {
 				if (data == 'loginrequired')
 					alert('You need to be logged in to do this.');
 				$('#eventbtnsubmitloading').hide();
 				$('#editevent').hide(400);
-
 			},
 			error: function(){
 				$('#eventbtnsubmitloading').hide();
@@ -191,8 +190,18 @@ var EventEditor = {
 		$.ajax({
 			type: "POST",
 			url: 'api/updateevent',
-			data: "type=" + EventEditor.type + "&event=" + EventEditor.event + "&day=" + EventEditor.getDayInt() + "&hour=" + $('#eventhour')[0].value + '&minute=' + $('#eventminute')[0].value + '&food=' + EventEditor.getFoodInt() + '&maxsaturation=' + $('#eventmaxsaturation')[0].value 
-					+ '&minamount=' + $('#eventminamount')[0].value + '&maxamount=' + $('#eventmaxamount')[0].value + '&value=' + $('#eventlight')[0].checked,
+			data: {
+				type: EventEditor.type,
+				event: EventEditor.event,
+				day: EventEditor.getDayInt(),
+				hour: $('#eventhour')[0].value,
+				minute: $('#eventminute')[0].value,
+				food: EventEditor.getFoodInt(),
+				maxsaturation: $('#eventmaxsaturation')[0].value,
+				minamount: $('#eventminamount')[0].value,
+				maxamount: $('#eventmaxamount')[0].value,
+				value: $('#eventlight')[0].checked
+				},
 			success: function(data) {
 				if (data == 'loginrequired')
 					alert('You need to be logged in to do this.');

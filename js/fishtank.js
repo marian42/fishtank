@@ -22,7 +22,7 @@ $('#btnmove').click(function(){
 	$.ajax({
 		type: "POST",
 		url:  'api/move',
-		data: "to=" + FeederView.getFirstSelectedIndex(),
+		data: {to: FeederView.getFirstSelectedIndex()},
 		success: function(data) {
 			if (data == 'loginrequired')
 				alert('You need to be logged in to do this.');
@@ -90,7 +90,7 @@ $('#loginform').on('keypress', function(event) {
 		$.ajax({
 			type: "POST",
 			url:  'api/login',
-			data: "username=" + username + '&password=' + $('#inputpassword').val(),
+			data: {username: username, password: $('#inputpassword').val()},
 			success: function(data) {
 				if (data == 'ok')
 					$("#divlogin").fadeOut(200);
@@ -142,7 +142,7 @@ $('#btnflashled').click(function(event) {
 	$.ajax({
 		type: "POST",
 		url: 'api/flashled',
-		data: 'color=' + color,
+		data: {color: color},
 		success: function(data) {
 			$("#dashboardloading").hide();	
 		},

@@ -324,7 +324,7 @@ FeederView = {
 		$.ajax({
 			type: "POST",
 			url: 'api/dump',
-			data: "to=" + FeederView.getFirstSelectedIndex(),
+			data: {to: FeederView.getFirstSelectedIndex()},
 			success: function(data) {
 				if (data == 'loginrequired')
 					alert('You need to be logged in to do this.');

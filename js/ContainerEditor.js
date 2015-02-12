@@ -28,7 +28,7 @@ var ContainerEditor = {
 		$.ajax({
 			type: "POST",
 			url: 'api/updatecontainers',
-			data: "containers=" + containers + "&food=" + ContainerEditor.food + "&amount=" + ContainerEditor.amount + "&priority=" + ContainerEditor.priority,
+			data: {containers: containers, food: ContainerEditor.food, amount: ContainerEditor.amount, priority: ContainerEditor.priority},
 			success: function(data) {
 				$('#containerbtnsubmitloading').hide();
 				if (data == 'loginrequired') {

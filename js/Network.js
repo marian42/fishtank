@@ -36,7 +36,7 @@ Network = {
 		$.ajax({
 			type: 'GET',
 			url: 'api/checkforupdate',
-			data: 'version=' + Status.version,
+			data: {version: Status.version},
 			success: function(data) {
 				if (data == 'true' || Network.reconnecting)
 					Network.updateStatus(Network.checkForUpdate);

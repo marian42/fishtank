@@ -32,7 +32,7 @@ LogView = {
 		$.ajax({
 			type: "GET",
 			url: 'api/log',
-			data: "entries=15&minlevel=" + this.minlevel + '&page=' + this.page,		
+			data: {entries: 15, minlevel: this.minlevel, page: this.page},		
 			success: function(data) {
 				$('#logloading').hide();
 				LogView.createTable(data);			
@@ -124,7 +124,7 @@ LogView = {
 		$.ajax({
 			type: "POST",
 			url: 'api/note',
-			data: "level=" + LogView.notelevel + '&note=' + $('#notetext').val(),
+			data: {level: LogView.notelevel, note: $('#notetext').val()},
 			success: function(data) {
 				$('#logloading').hide();
 				$('#notetext').val('');

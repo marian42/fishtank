@@ -104,7 +104,7 @@ EventView = {
 		$.ajax({
 			type: "POST",
 			url: 'api/enableschedule',
-			data: "value=" + (!EventView.scheduling),
+			data: {value: !EventView.scheduling},
 			success: function(data) {
 				network.updateStatus();
 				$('#scheduleloading').hide();			
