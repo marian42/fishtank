@@ -21,6 +21,7 @@ FeederView = {
 	positionto: 0,
 	moving: false,
 	rotation: 0,
+	indicatorDefaultPosition: Math.PI,
 	
 	setup: function() {
 		$(document).bind('keyup keydown', function(event){FeederView.onKeyPress(event);});
@@ -67,8 +68,8 @@ FeederView = {
 	},
 	
 	updateRotation: function() {
-		this.rotation = - this.position;
-		this.indicator.setAttribute('transform','rotate(' + ((this.position + this.rotation) * 360.0 / Feeder.size) + ',250,250)');								
+		this.rotation = - this.position + Feeder.size * this.indicatorDefaultPosition / (2 * Math.PI);
+		this.indicator.setAttribute('transform','rotate(' + ((-this.position - this.rotation) * 360.0 / Feeder.size) + ',250,250)');								
 		this.target.setAttribute('transform','rotate(' + ((-this.positionto - this.rotation) * 360.0 / Feeder.size) + ',250,250)');								
 		for (var i = 0; i < Feeder.size; i++) {
 			this.containers[i].svgpath.setAttribute('transform','rotate(' + ((- i - this.rotation) * 360.0 / Feeder.size) + ',250,250)');
