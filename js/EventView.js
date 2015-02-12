@@ -8,7 +8,7 @@ EventView = {
 	
 	setup: function() {
 		this.svg = $('#svgevents')[0];
-		$('#btnschedule')[0].onclick = EventView.btnScheduleClick;
+		$('#btnschedule')[0].onclick = this.btnScheduleClick;
 	},
 	
 	getMarker: function(id) {
@@ -99,14 +99,14 @@ EventView = {
 		EventView.onClickMarker(id);
 	},
 	
-	onBtnScheduleClick: function() {
+	btnScheduleClick: function() {
 		$('#scheduleloading').show();
 		$.ajax({
 			type: "POST",
 			url: 'api/enableschedule',
 			data: {value: !EventView.scheduling},
 			success: function(data) {
-				network.updateStatus();
+				Network.updateStatus();
 				$('#scheduleloading').hide();			
 			},
 			error: function(){
