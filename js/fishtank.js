@@ -1,15 +1,4 @@
-var CONTAINERS = 27;
-
-var containerEditor = new Object();
-
-var feeder = new Feeder(CONTAINERS);
-var feederView = new FeederView(feeder, "svgcontainers", "containerprototype", "indicator", 'target');
-var serverStatus = new Status();
-var logView = new LogView();
-var eventView = new EventView();
-var imageView = new ImageView();
-var network = new Network(feeder, feederView, eventView, serverStatus, imageView);
-network.checkForUpdate();
+Network.checkForUpdate();
 
 var ledcolor = 'rgb(0,0,255)';
 
@@ -28,124 +17,12 @@ Array.prototype.remove = function(from, to) {
   return this.push.apply(this, rest);
 };
 
-$(".dropdown-menu li a").click( function(event) {
-	var index = $($(this)[0].parentNode.parentNode.children).index($(this)[0].parentNode);
-	
-	if ($(this)[0].parentNode.parentNode.parentNode.id == 'ddfoodtype') {
-		if (index == 7)
-			index = 0;
-		else index++;
-		containerEditor.food = index;
-		if (index != 0) {
-			$('#ddfoodtypecurrentimg')[0].src = 'img/food' + index + '.png';
-			$('#ddfoodtypecurrentimg')[0].style.display = 'inline';
-			$('#ddfoodtypecurrent')[0].innerHTML = '';
-			if (containerEditor.amount == 0) {
-				containerEditor.amount = 1;
-				$('#ddamountcurrent')[0].innerHTML = 1;
-			}
-				
-		} else {
-			$('#ddfoodtypecurrentimg')[0].style.display = 'none';
-			$('#ddfoodtypecurrent')[0].innerHTML = 'Empty';
-			containerEditor.amount = 0;
-			$('#ddamountcurrent')[0].innerHTML = '0';
-		}
-		if (containerEditor.food != -1 || containerEditor.amount != -1 || containerEditor.priority != -1) {
-			$('#diveditcontainer').show()
-			containerEditor.btnsenabled = true;
-		}
-	}
-	if ($(this)[0].parentNode.parentNode.parentNode.id == 'ddamount') {
-		var amounts = [0.1,0.2,0.33,0.5,0.66,1,1.5,2];
-		containerEditor.amount = amounts[index];
-		$('#ddamountcurrent')[0].innerHTML = amounts[index];
-		if (containerEditor.food != -1 || containerEditor.amount != -1 || containerEditor.priority != -1) {
-			$('#diveditcontainer').show()
-			containerEditor.btnsenabled = true;
-		}
-	}
-	if ($(this)[0].parentNode.parentNode.parentNode.id == 'ddpriority') {
-		containerEditor.priority = index;
-		$('#ddprioritycurrent')[0].innerHTML = $(this)[0].innerHTML;
-		if (containerEditor.food != -1 || containerEditor.amount != -1 || containerEditor.priority != -1) {
-			$('#diveditcontainer').show()
-			containerEditor.btnsenabled = true;
-		}
-	}
-	
-	if ($(this)[0].parentNode.parentNode.parentNode.id == 'ddeventtype') {
-		eventEditor.type = index;
-		$('#ddeventtypecurrent')[0].innerHTML = $(this)[0].innerHTML;
-		$('#editeventfeed')[0].style.display = (index == 0 ? 'block' : 'none');
-		$('#editeventlight')[0].style.display = (index == 1 ? 'block' : 'none');
-	}
-	
-	if ($(this)[0].parentNode.parentNode.parentNode.id == 'ddledcolor') {
-		ledcolor = $(this)[0].children[0].style.backgroundColor;
-		$('#ledcolorpreview')[0].style.backgroundColor = ledcolor;
-	}
-	
-	if ($(this)[0].parentNode.parentNode.parentNode.id == 'ddloglevel') {
-		logView.minlevel = index;
-		logView.refresh();
-	}
-	
-	if ($(this)[0].parentNode.parentNode.parentNode.id == 'ddnotelevel') {
-		$('#ddnotelevelcurrent')[0].innerHTML = logView.loglevel[index];
-		logView.notelevel = index;
-	}
-	
-	event.preventDefault();
-});
-
-$('#containerbtncancel').click(function() {
-	if (!containerEditor.btnsenabled)
-		return;
-	feederView.updateSelection();
-});
-
-$('#containerbtnsubmit').click(function() {
-	if (!containerEditor.btnsenabled)
-		return;
-	$('#containerbtnsubmitloading').show();
-	var containers = '';
-	for (var i = 0; i < feederView.size; i++)
-		if (feederView.c[i].selected)
-			containers += i + ',';
-	$.ajax({
-		type: "POST",
-		url:  'api/updatecontainers',
-		data: "containers=" + containers + "&food=" + containerEditor.food + "&amount=" + containerEditor.amount + "&priority=" + containerEditor.priority,
-		success: function(data) {
-			$('#containerbtnsubmitloading').hide();
-			if (data == 'loginrequired') {
-				alert('You need to be logged in to do this.');
-				return;
-			}
-			for (var i = 0; i < feederView.size; i++)
-				if (feederView.c[i].selected) {
-					if (containerEditor.food != -1)
-						feeder.container[i].food = containerEditor.food;
-					if (containerEditor.amount != -1)
-						feeder.container[i].amount = containerEditor.amount;
-					if (containerEditor.priority != -1)
-						feeder.container[i].priority = containerEditor.priority;
-				}
-			feederView.updateSelection();
-		},
-		error: function(){
-			$('#containerbtnsubmitloading').hide();
-		}
-	});
-});
-
 $('#btnmove').click(function(){
 	$("#containerloading").show();
 	$.ajax({
 		type: "POST",
 		url:  'api/move',
-		data: "to=" + feederView.getFirstSelectedIndex(),
+		data: "to=" + FeederView.getFirstSelectedIndex(),
 		success: function(data) {
 			if (data == 'loginrequired')
 				alert('You need to be logged in to do this.');
@@ -157,31 +34,14 @@ $('#btnmove').click(function(){
 	});
 });
 
-$('#btnfeedcontainer').click(function(){
-	$("#containerloading").show();
-	$.ajax({
-		type: "POST",
-		url: 'api/dump',
-		data: "to=" + feederView.getFirstSelectedIndex(),
-		success: function(data) {
-			if (data == 'loginrequired')
-				alert('You need to be logged in to do this.');
-			$("#containerloading").hide();
-		},
-		error: function(){
-			$("#containerloading").hide();
-		}
-	});
-});
-
-window.addEventListener("mouseup", function() {feederView.onMouseUp();});
-
 function updateTimestamps() {
-	logView.updateTimestamps();
-	eventView.updateTime();
-	serverStatus.updateTime();
+	LogView.updateTimestamps();
+	EventView.updateTime();
+	Status.updateTime();
 	setTimeout(updateTimestamps, 10000);
 }
+
+updateTimestamps();
 
 $(document).on("click",function () {
    if ($("#divlogin").is(":visible")){
@@ -205,8 +65,8 @@ $('#btnlogout').on("click",function (event) {
 		type: "POST",
 		url: 'api/logout',
 		success: function(data) {
-			serverStatus.rawdata.user = null;
-			serverStatus.update()
+			Status.rawdata.user = null;
+			Status.update()
 		},
 		error: function(){
 			
@@ -219,7 +79,7 @@ $('#divlogin').on("click",function (event) {
 	event.stopPropagation();
 });
 
-$('#loginform').on('keypress',function(event) {
+$('#loginform').on('keypress', function(event) {
 	if (event.keyCode == 13) {
 		network.username = $('#inputusername').val();
 		network.password = $('#inputpassword').val();
@@ -236,8 +96,8 @@ $('#loginform').on('keypress',function(event) {
 					$("#divlogin").fadeOut(200);
 				$('#inputpassword').val('');
 				$("#loggingin").hide();
-				serverStatus.rawdata.user = username;
-				serverStatus.update()
+				Status.rawdata.user = username;
+				Status.update()
 			},
 			error: function(){
 				$("#loggingin").hide();	
@@ -263,6 +123,15 @@ $('#btnswitchlights').click(function(event) {
 	});
 });
 
+$("#ledcolorpreview .dropdown-menu li a").click( function(event) {
+	var index = $($(this)[0].parentNode.parentNode.children).index($(this)[0].parentNode);
+	
+	ledcolor = $(this)[0].children[0].style.backgroundColor;
+	$('#ledcolorpreview')[0].style.backgroundColor = ledcolor;
+	
+	event.preventDefault();
+});
+
 $('#btnflashled').click(function(event) {
 	var parts = ledcolor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
 	var val = parseInt(parts[3]) + parseInt(parts[2]) * 256 + parseInt(parts[1]) * 256 * 256;
@@ -283,22 +152,6 @@ $('#btnflashled').click(function(event) {
 	});
 });
 
-$('#btncalibrate').click(function(event) {
-	$("#containerloading").show();
-	$.ajax({
-		type: "POST",
-		url: 'api/calibrate',
-		success: function(data) {
-			if (data == 'loginrequired')
-				alert('You need to be logged in to do this.');
-			$("#containerloading").hide();	
-		},
-		error: function(){
-			$("#containerloading").hide();	
-		}
-	});
-});
-
 var offset = 54;
 
 $('.nav-sidebar li a').click(function(event) {
@@ -306,5 +159,3 @@ $('.nav-sidebar li a').click(function(event) {
     $($(this).attr('href'))[0].scrollIntoView();
     scrollBy(0, -offset);
 });
-
-updateTimestamps();

@@ -336,26 +336,26 @@
 									<div style="margin-bottom:15px;">
 										<span class="inputdescription">Days</span>
 										<div class="btn-group">
-											<button type="button" class="btn btn-default" id="dayselector0" onclick="dayselectorclick(event);">Mon</button>
-											<button type="button" class="btn btn-default" id="dayselector1" onclick="dayselectorclick(event);">Tue</button>
-											<button type="button" class="btn btn-default" id="dayselector2" onclick="dayselectorclick(event);">Wed</button>
-											<button type="button" class="btn btn-default" id="dayselector3" onclick="dayselectorclick(event);">Thu</button>
-											<button type="button" class="btn btn-default" id="dayselector4" onclick="dayselectorclick(event);">Fri</button>
-											<button type="button" class="btn btn-default" id="dayselector5" onclick="dayselectorclick(event);">Sat</button>
-											<button type="button" class="btn btn-default" id="dayselector6" onclick="dayselectorclick(event);">Sun</button>
-											<button type="button" class="btn btn-default" id="dayselector7" onclick="dayselectorclick(event);">All</button>
+											<button type="button" class="btn btn-default" id="dayselector0" onclick="EventEditor.daySelectorClick(event);">Mon</button>
+											<button type="button" class="btn btn-default" id="dayselector1" onclick="EventEditor.daySelectorClick(event);">Tue</button>
+											<button type="button" class="btn btn-default" id="dayselector2" onclick="EventEditor.daySelectorClick(event);">Wed</button>
+											<button type="button" class="btn btn-default" id="dayselector3" onclick="EventEditor.daySelectorClick(event);">Thu</button>
+											<button type="button" class="btn btn-default" id="dayselector4" onclick="EventEditor.daySelectorClick(event);">Fri</button>
+											<button type="button" class="btn btn-default" id="dayselector5" onclick="EventEditor.daySelectorClick(event);">Sat</button>
+											<button type="button" class="btn btn-default" id="dayselector6" onclick="EventEditor.daySelectorClick(event);">Sun</button>
+											<button type="button" class="btn btn-default" id="dayselector7" onclick="EventEditor.daySelectorClick(event);">All</button>
 										</div>
 									</div>
 									<div id="editeventfeed">
 										<span class="inputdescription">Food types</span>
 										<div class="btn-group">
-											<button type="button" class="btn btn-default" id="foodselector0" onclick="foodselectorclick(event);"><img width="30px" src="img/food1.png"></button>
-											<button type="button" class="btn btn-default" id="foodselector1" onclick="foodselectorclick(event);"><img width="30px" src="img/food2.png"></button>
-											<button type="button" class="btn btn-default" id="foodselector2" onclick="foodselectorclick(event);"><img width="30px" src="img/food3.png"></button>
-											<button type="button" class="btn btn-default" id="foodselector3" onclick="foodselectorclick(event);"><img width="30px" src="img/food4.png"></button>
-											<button type="button" class="btn btn-default" id="foodselector4" onclick="foodselectorclick(event);"><img width="30px" src="img/food5.png"></button>
-											<button type="button" class="btn btn-default" id="foodselector5" onclick="foodselectorclick(event);"><img width="30px" src="img/food6.png"></button>
-											<button type="button" class="btn btn-default" id="foodselector6" onclick="foodselectorclick(event);"><div style="height:30px; display:table-cell; vertical-align:middle;">Any</div></button>
+											<button type="button" class="btn btn-default" id="foodselector0" onclick="EventEditor.foodSelectorClick(event);"><img width="30px" src="img/food1.png"></button>
+											<button type="button" class="btn btn-default" id="foodselector1" onclick="EventEditor.foodSelectorClick(event);"><img width="30px" src="img/food2.png"></button>
+											<button type="button" class="btn btn-default" id="foodselector2" onclick="EventEditor.foodSelectorClick(event);"><img width="30px" src="img/food3.png"></button>
+											<button type="button" class="btn btn-default" id="foodselector3" onclick="EventEditor.foodSelectorClick(event);"><img width="30px" src="img/food4.png"></button>
+											<button type="button" class="btn btn-default" id="foodselector4" onclick="EventEditor.foodSelectorClick(event);"><img width="30px" src="img/food5.png"></button>
+											<button type="button" class="btn btn-default" id="foodselector5" onclick="EventEditor.foodSelectorClick(event);"><img width="30px" src="img/food6.png"></button>
+											<button type="button" class="btn btn-default" id="foodselector6" onclick="EventEditor.foodselectorclick(event);"><div style="height:30px; display:table-cell; vertical-align:middle;">Any</div></button>
 										</div>
 										<div style="margin-bottom:20px;">
 											<span class="inputdescription">Max. saturation</span>
@@ -662,9 +662,11 @@
 		<script src="js/moment.min.js"></script>
 		<script src="js/Status.js"></script>
 		<script src="js/Container.js"></script>
+		<script src="js/ContainerEditor.js"></script>
 		<script src="js/Feeder.js"></script>
 		<script src="js/FeederView.js"></script>
 		<script src="js/LogView.js"></script>
+		<script src="js/Marker.js"></script>		
 		<script src="js/EventEditor.js"></script>
 		<script src="js/EventView.js"></script>
 		<script src="js/ImageView.js"></script>
