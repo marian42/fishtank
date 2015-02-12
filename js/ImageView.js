@@ -78,21 +78,21 @@ ImageView = {
 	},
 	
 	takePicture: function() {
-		if (!btntakepictureenabled)
+		if (!ImageView.btntakepictureenabled)
 			return;
-		btntakepictureenabled = false;
+		ImageView.btntakepictureenabled = false;
 		$('#pictureloading').show();
 		$.ajax({
 			type: "POST",
 			url: 'api/takepicture',
 			success: function(data) {
-				network.updateStatus();
+				Network.updateStatus();
 				$('#pictureloading').hide();
-				btntakepictureenabled = true;
+				ImageView.btntakepictureenabled = true;
 			},
 			error: function(){
 				$('#pictureloading').hide();
-				btntakepictureenabled = true;
+				ImageView.btntakepictureenabled = true;
 			}
 		});
 	}
