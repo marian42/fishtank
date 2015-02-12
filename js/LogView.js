@@ -2,7 +2,8 @@ LogView = {
 	table: $('#tablelog')[0],
 	loglevel: ['Log','Info','Event','Warning','Error','Critical Error'],
 	logcolor: ['default', 'info', 'primary', 'warning', 'danger', 'danger'],
-	data: 0,
+	currentData: 0,
+	defaultData: 0,
 	
 	minlevel: 0,
 	page: 1,
@@ -24,8 +25,8 @@ LogView = {
 			this.page = 1;
 		$('#currentpage')[0].innerHTML = this.page;
 		
-		if (this.minlevel == 0 && this.page == 1) {
-			this.createTable(this.defaultdata);
+		if (this.isDefaultFilter()) {
+			this.createTable(this.defaultData);
 			return;
 		}
 		$('#logloading').show();
@@ -43,13 +44,15 @@ LogView = {
 			}
 		});
 	},
+	
+	isDefaultFilter: function() {
+		return this.page == 1 && this.minlevel == 0;
+	},
 
 	createTable: function(data) {
 		if (data == null)
-			return;
-		this.data = data;
-		if (this.page == 1 && this.minlevel == 0)
-			this.defaultdata = data;
+			data = this.defaultData;
+		this.currentData = data;
 		
 		while(this.table.hasChildNodes())
 			this.table.removeChild(this.table.firstChild);
@@ -91,10 +94,10 @@ LogView = {
 	},
 
 	updateTimestamps: function() {
-		for (var i = 0; i < this.data.length; i++) {		
-			var date = new Date(this.data[i][1] * 1000);
+		for (var i = 0; i < this.currentData.length; i++) {		
+			var date = new Date(this.currentData[i][1] * 1000);
 			var now = new Date();
-			$('#timestamp' + this.data[i][0])[0].innerHTML = '<span class="hidden-xs" title="' + moment(date).calendar() + '" class="tooltip2"><span>' + moment(date).fromNow() + '</span></span><span class="visible-xs" title="' + moment(date).fromNow() + '" class="tooltip2"><span>' + moment(date).format('h:mm') + '</span></span>';
+			$('#timestamp' + this.currentData[i][0])[0].innerHTML = '<span class="hidden-xs" title="' + moment(date).calendar() + '" class="tooltip2"><span>' + moment(date).fromNow() + '</span></span><span class="visible-xs" title="' + moment(date).fromNow() + '" class="tooltip2"><span>' + moment(date).format('h:mm') + '</span></span>';
 		}
 	},
 	

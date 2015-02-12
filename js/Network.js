@@ -29,7 +29,9 @@ Network = {
 		FeederView.update(data.feeder);
 		EventView.update(data);
 		ImageView.update(data.imagecount);		
-		LogView.createTable(data.log);
+		LogView.defaultData = data.log;
+		if (LogView.isDefaultFilter())
+			LogView.createTable();
 	},
 
 	checkForUpdate: function() {
