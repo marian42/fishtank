@@ -36,7 +36,7 @@ ImageView = {
 		if (count != null)
 			this.count = count;
 		var p = 0;
-		for (var i = count; i >= Math.max(this.count - this.displayCount,1); i--) {
+		for (var i = count; i >= Math.max(this.count - this.displayCount + 1, 1); i--) {
 			this.images[p].display = true;
 			this.images[p].div.style.display = 'block';
 			this.images[p].img.setAttribute('src', this.getImageUrl(i));
