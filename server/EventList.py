@@ -22,8 +22,7 @@ def load(ini):
 
 	section = 'events'
 	if not ini.has_section(section):
-		print("error!")
-		return
+		raise Exception("Broken state.ini file")
 	idcounter = ini.getint(section,'idcounter')
 	enabled = ini.getboolean(section,'enabled')
 	count = ini.getint(section,'count')
@@ -74,13 +73,9 @@ def update(params):
 		events.append(event)
 	else:
 		event.id = id
-		success = False
 		for i in range(len(events)):
 			if events[i].id == id:
 				events[i] = event
-				success = True
-		if not success:
-			print "fail"
 	return event
 
 def getEvent(id):

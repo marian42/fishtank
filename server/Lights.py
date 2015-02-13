@@ -10,7 +10,7 @@ def load(ini):
 
 	section = 'lights'
 	if not ini.has_section(section):
-		print("error!")
+		raise Exception("Broken state.ini file")
 		return
 	value = ini.get(section, 'value') == 'True'
 

@@ -115,8 +115,7 @@ def updateEvent():
 def deleteEvent():
 	event = EventList.getEvent(int(request.form['id']))
 	if event == None:
-		print 'error'
-		return 'error' # TODO
+		return 'Event not found', HTTP_400_BAD_REQUEST
 	EventList.events.remove(event)
 	Log.write(message = 'Deleted event (' + EventList.names[event.type] + ' at ' + str(event.hour) + ':' + ('0' if event.minute < 10 else '') + str(event.minute) + ')', startedby = current_user.id)
 	return 'ok'
@@ -207,7 +206,7 @@ def login():
 		return 'ok'
 	else:
 		print('login failed (' + request.values.get('username') + ')')
-		return 'error'
+		return 'Login failed', status.HTTP_401_UNAUTHORIZED
 
 @app.route("/api/logout", methods=['POST'])
 @login_required

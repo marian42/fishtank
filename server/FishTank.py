@@ -51,8 +51,7 @@ def load():
 	
 	section = 'status'
 	if not status.has_section(section):
-		print("error!")
-		return
+		raise Exception("Broken state.ini file")
 	saturation = float(status.get(section, 'saturation'))
 	saturationchanged = datetime.datetime.strptime(status.get(section, 'saturationchanged'), "%Y-%m-%d %H:%M:%S.%f")
 	version = status.getint(section, 'version') + 1

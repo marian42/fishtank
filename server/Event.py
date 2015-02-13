@@ -46,8 +46,7 @@ class Event(object):
 
 	def readFromIni(self, ini, section):
 		if not ini.has_section(section):
-			print("error!")
-			return
+			raise Exception("Broken state.ini file")
 		self.type = ini.getint(section, 'type')
 		self.id = ini.getint(section, 'id')
 		self.setDayInt(ini.getint(section, 'day'))
@@ -102,7 +101,7 @@ class Event(object):
 			self.execute()
 		except Exception as exception:
 			Log.write(message = 'Unexpected error while executing event (' + self.getName() + ')', level = 4, startedby = 'event');
-			traceback.print_exc(file=sys.stdout)
+			pass
 
 class FeedEvent(Event):
 	def __init__(self):

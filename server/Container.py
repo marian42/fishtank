@@ -22,8 +22,7 @@ class Container(object):
 	def loadFromIni(self, ini):
 		section = 'container' + str(self.index)
 		if not ini.has_section(section):
-			print("error!")
-			return
+			raise Exception("Broken state.ini file")
 		self.food = ini.getint(section, 'food')
 		self.amount = ini.getfloat(section, 'amount')
 		self.filled = datetime.datetime.strptime(ini.get(section, 'filled'), "%Y-%m-%d %H:%M:%S.%f")

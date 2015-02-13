@@ -32,7 +32,7 @@ def getRecentEntries(count = -1, minlevel = 0, page = 1):
 		db.close()
 		loglines = list(cursor.fetchall())
 	except:
-		print traceback.format_exc()
+		traceback.print_exec(file = sys.stdout)
 		return last
 
 	for i in range(len(loglines)):
@@ -50,8 +50,7 @@ def write(message, level = 0, image = 0, startedby = 'server', title = None):
 		db.commit()
 		db.close()
 	except:
-		print traceback.format_exc()
-		print "Error while writing to the database"
+		traceback.print_exec(file = sys.stdout)
 	if level >= Config.pbMinPushLevel:
 		if (image == 0):
 			start_new_thread(pushbullet.pushNote,(device['iden'],title if title != None else 'Fishtank (' + loglevels[level] + ')',message))
