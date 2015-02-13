@@ -35,12 +35,12 @@ LogView = {
 			url: 'api/log',
 			data: {entries: 15, minlevel: this.minlevel, page: this.page},		
 			success: function(data) {
-				$('#logloading').hide();
 				LogView.createTable(data);			
 			},
-			error: function(){			
+			complete: function(data){			
 				$('#logloading').hide();
-				alert("error!");
+				if (data.status != 200)
+					Network.onRequestComplete(data);
 			}
 		});
 	},
@@ -129,13 +129,12 @@ LogView = {
 			url: 'api/note',
 			data: {level: LogView.notelevel, note: $('#notetext').val()},
 			success: function(data) {
-				$('#logloading').hide();
 				$('#notetext').val('');
 				LogView.notelevel = 0;
 			},
-			error: function(){
+			complete: function(data){
 				$('#logloading').hide();
-				alert("error!");
+				Network.onRequestComplete(data);
 			}
 		});
 	},

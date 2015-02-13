@@ -329,13 +329,9 @@ FeederView = {
 			type: "POST",
 			url: 'api/dump',
 			data: {to: FeederView.getFirstSelectedIndex()},
-			success: function(data) {
-				if (data == 'loginrequired')
-					alert('You need to be logged in to do this.');
+			complete: function(data){
 				$("#containerloading").hide();
-			},
-			error: function(){
-				$("#containerloading").hide();
+				Network.onRequestComplete(data);
 			}
 		});
 	},
@@ -348,13 +344,9 @@ FeederView = {
 		$.ajax({
 			type: "POST",
 			url: 'api/calibrate',
-			success: function(data) {
-				if (data == 'loginrequired')
-					alert('You need to be logged in to do this.');
-				$("#containerloading").hide();	
-			},
-			error: function(){
-				$("#containerloading").hide();	
+			complete: function(data){
+				$("#containerloading").hide();
+				Network.onRequestComplete(data);
 			}
 		});
 	}

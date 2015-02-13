@@ -8,9 +8,8 @@ Network = {
 			url: 'api/status',
 			success: function(data) {
 				Network.onUpdateSuccess(data);
-				if (callback) callback();
 			},
-			error: function(){
+			complete: function(){
 				if (callback) callback();
 			}
 		});
@@ -51,5 +50,26 @@ Network = {
 				setTimeout(Network.checkForUpdate, Network.retryInterval);
 			}
 		});
+	},
+	
+	onRequestComplete: function(result) {
+		if (result.status == 200 && result.responseText == null || result.responseText == 'ok' || result.responseText == '')
+			return;
+		text = result.responseText;
+		if (text == null || result.responseText == '') {
+			switch(result.status) {
+				case 401:
+					text = 'Login required';
+					break;
+				case 400:
+					text = 'Not allowed';
+					break;
+				case 503:
+					text = 'Server Error';
+					break;
+				default: text = 'HTTP ' + result.status;
+			}
+		}
+		Status.alert(text, result.status >= 400 ? 3 : 0);
 	}
 };

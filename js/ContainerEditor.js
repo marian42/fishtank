@@ -32,11 +32,6 @@ var ContainerEditor = {
 			url: 'api/updatecontainers',
 			data: {containers: containers, food: ContainerEditor.food, amount: ContainerEditor.amount, priority: ContainerEditor.priority},
 			success: function(data) {
-				$('#containerbtnsubmitloading').hide();
-				if (data == 'loginrequired') {
-					alert('You need to be logged in to do this.');
-					return;
-				}
 				for (var i = 0; i < Feeder.size; i++)
 					if (FeederView.containers[i].selected) {
 						if (ContainerEditor.food != -1)
@@ -48,8 +43,9 @@ var ContainerEditor = {
 					}
 				FeederView.updateSelection();
 			},
-			error: function(){
+			complete: function(data){
 				$('#containerbtnsubmitloading').hide();
+				Network.onRequestComplete(data);
 			}
 		});
 	},

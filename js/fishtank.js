@@ -25,11 +25,9 @@ $('#btnmove').click(function(){
 		type: "POST",
 		url:  'api/move',
 		data: {to: FeederView.getFirstSelectedIndex()},
-		success: function(data) {
+		complete: function(data) {
 			$("#containerloading").hide();
-		},
-		error: function(){
-			$("#containerloading").hide();	
+			Network.onRequestComplete(data);
 		}
 	});
 });
@@ -68,9 +66,6 @@ $('#btnlogout').on("click",function (event) {
 			Status.rawdata.user = null;
 			Status.update(Status.rawdata)
 			Status.alert('Logged out.', 0);
-		},
-		error: function(){
-			
 		}
 	});
 	return false;
@@ -116,14 +111,10 @@ $('#btnswitchlights').click(function(event) {
 	$("#dashboardloading").show();
 	$.ajax({
 		type: "POST",
-		url:  'api/switchlights',			
-		success: function(data) {
-			if (data == 'loginrequired')
-				alert('You need to be logged in to do this.');
-			$("#dashboardloading").hide();	
-		},
-		error: function(){
-			$("#dashboardloading").hide();	
+		url:  'api/switchlights',
+		complete: function(data){
+			$("#dashboardloading").hide();
+			Network.onRequestComplete(data);			
 		}
 	});
 });
@@ -148,11 +139,9 @@ $('#btnflashled').click(function(event) {
 		type: "POST",
 		url: 'api/flashled',
 		data: {color: color},
-		success: function(data) {
-			$("#dashboardloading").hide();	
-		},
-		error: function(){
-			$("#dashboardloading").hide();	
+		complete: function(data) {
+			$("#dashboardloading").hide();
+			Network.onRequestComplete(data);
 		}
 	});
 });

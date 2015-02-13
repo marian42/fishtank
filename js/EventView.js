@@ -108,12 +108,9 @@ EventView = {
 			type: "POST",
 			url: 'api/enableschedule',
 			data: {value: !EventView.scheduling},
-			success: function(data) {
-				Network.updateStatus();
-				$('#scheduleloading').hide();			
-			},
-			error: function(){
+			complete: function(data){
 				$('#scheduleloading').hide();
+				Network.onRequestComplete(data);
 			}
 		});
 	}

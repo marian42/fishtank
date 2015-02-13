@@ -176,14 +176,11 @@ var EventEditor = {
 			url: 'api/deleteevent',
 			data: {id: EventEditor.event},
 			success: function(data) {
-				if (data == 'loginrequired')
-					alert('You need to be logged in to do this.');
-				$('#eventbtnsubmitloading').hide();
 				$('#editevent').hide(400);
 			},
-			error: function(){
+			complete: function(data){
 				$('#eventbtnsubmitloading').hide();
-				alert("error!");
+				Network.onRequestComplete(data);
 			}
 		});
 	},
@@ -209,14 +206,11 @@ var EventEditor = {
 				value: $('#eventlight')[0].checked
 				},
 			success: function(data) {
-				if (data == 'loginrequired')
-					alert('You need to be logged in to do this.');
-				$('#eventbtnsubmitloading').hide();
 				$('#editevent').hide(400);
 			},
-			error: function(){
+			complete: function(data){
 				$('#eventbtnsubmitloading').hide();
-				alert("error!");
+				Network.onRequestComplete(data);
 			}
 		});
 	},

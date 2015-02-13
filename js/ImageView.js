@@ -85,14 +85,10 @@ ImageView = {
 		$.ajax({
 			type: "POST",
 			url: 'api/takepicture',
-			success: function(data) {
-				Network.updateStatus();
+			complete: function(data){
 				$('#pictureloading').hide();
 				ImageView.btntakepictureenabled = true;
-			},
-			error: function(){
-				$('#pictureloading').hide();
-				ImageView.btntakepictureenabled = true;
+				Network.onRequestComplete(data);
 			}
 		});
 	}
