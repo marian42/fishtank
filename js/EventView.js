@@ -22,7 +22,6 @@ EventView = {
 		var marker = new Marker(event);
 		this.markers.push(marker);	
 		this.svg.appendChild(marker.svggroup);
-		marker.update(event);
 		$(marker.svggroup).hide();
 		$(marker.svggroup).show(400);
 		return marker;
@@ -43,9 +42,9 @@ EventView = {
 			}
 			else {
 				marker.event = this.events[i];
-				marker.update();
 			}
-		}
+		}		
+		
 		for (var i = 0; i < this.markers.length; i++) {
 			var found = false;
 			for (var j = 0; j < this.events.length; j++)
@@ -59,9 +58,12 @@ EventView = {
 			}
 		}
 		
+		for (var i = 0; i < this.markers.length; i++)
+			this.markers[i].update();
+		
 		var min = 24 * 60;
 		for (var i = 0; i < this.markers.length; i++)
-			if (this.markers[i].event.type == 1 && this.markers[i].event.value)
+			if (this.markers[i].event.type == 1 && this.markers[i].activeToday())
 				min = Math.min(min, EventView.markers[i].event.hour * 60 + EventView.markers[i].event.minute);
 		$('#firstdarknessline')[0].setAttribute('width',min / 6);
 		
@@ -81,8 +83,7 @@ EventView = {
 		$('#currenttime')[0].setAttribute('x2',(now.getUTCHours() * 10 + now.getUTCMinutes() / 6));
 		
 		for (var i = 0; i < this.markers.length; i++) {
-			var arr = explodeBinArray(this.markers[i].event.day, 7);
-			if (arr[(now.getDay() + 6) % 7])
+			if (this.markers[i].activeToday())
 				this.markers[i].svgpath.style.fill = eventcolors[this.markers[i].event.type];
 			else this.markers[i].svgpath.style.fill = '#ADADAD';
 		}
