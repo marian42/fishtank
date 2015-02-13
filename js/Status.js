@@ -51,6 +51,8 @@ Status = {
 			$('#guesthint').show(100);
 			$('#dismisshint').click(function() {Status.dismissedHint = true;});
 		}
+		else 
+			$('#guesthint').hide(100);
 	},
 
 	updateTime: function() {
