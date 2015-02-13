@@ -122,6 +122,9 @@ def deleteEvent():
 
 @app.route("/api/takepicture", methods=['POST'])
 def takePicture():
+	if not current_user.is_authenticated() and datetime.datetime.now() - Camera.lastPictureTaken < datetime.timedelta(minutes = 5):
+		return 'Taking too many pictures, please wait ' + str(int((Camera.lastPictureTaken + datetime.timedelta(minutes = 5) - datetime.datetime.now()).seconds / 60) + 1) + str(' minutes.'), 400
+
 	id = Camera.takePicture();
 	username = 'guest'
 	if current_user.is_authenticated():

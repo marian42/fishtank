@@ -1,5 +1,6 @@
 import pygame.camera
 import pygame.image
+import datetime
 
 import Config
 import FishTank
@@ -8,11 +9,13 @@ counter = 0
 
 pygame.camera.init()
 cam = pygame.camera.Camera(pygame.camera.list_cameras()[0])
+lastPictureTaken = datetime.datetime.fromtimestamp(0)
 		
 def takePicture():
-	global counter
+	global counter, lastPictureTaken
 
 	FishTank.updateStatus('Taking picture...')
+	lastPictureTaken = datetime.datetime.now()
 	
 	counter += 1
 	
