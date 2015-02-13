@@ -167,6 +167,9 @@ var EventEditor = {
 	},
 	
 	btnEditEventDeleteClick: function() {
+		if (!Status.checkLogin())
+			return;
+	
 		$('#eventbtnsubmitloading').show();
 		$.ajax({
 			type: "POST",
@@ -186,6 +189,9 @@ var EventEditor = {
 	},
 	
 	btnEditEventSubmitClick: function() {
+		if (!Status.checkLogin())
+			return;	
+		
 		$('#eventbtnsubmitloading').show();
 		$.ajax({
 			type: "POST",

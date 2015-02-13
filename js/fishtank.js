@@ -18,14 +18,14 @@ Array.prototype.remove = function(from, to) {
 };
 
 $('#btnmove').click(function(){
+	if (!Status.checkLogin())
+		return;
 	$("#containerloading").show();
 	$.ajax({
 		type: "POST",
 		url:  'api/move',
 		data: {to: FeederView.getFirstSelectedIndex()},
 		success: function(data) {
-			if (data == 'loginrequired')
-				alert('You need to be logged in to do this.');
 			$("#containerloading").hide();
 		},
 		error: function(){
@@ -67,6 +67,7 @@ $('#btnlogout').on("click",function (event) {
 		success: function(data) {
 			Status.rawdata.user = null;
 			Status.update(Status.rawdata)
+			Status.alert('Logged out.', 0);
 		},
 		error: function(){
 			
@@ -98,16 +99,20 @@ $('#loginform').on('keypress', function(event) {
 				$("#loggingin").hide();
 				Status.rawdata.user = username;
 				Status.update(Status.rawdata)
+				Status.alert('Login successful', 0);
 			},
 			error: function(){
 				$("#loggingin").hide();	
-				Network.loggedin = false;						
+				Network.loggedin = false;
+				Status.alert('Login failed', 3);
 			}
 		});
 	}
 });
 
 $('#btnswitchlights').click(function(event) {
+	if (!Status.checkLogin())
+		return;
 	$("#dashboardloading").show();
 	$.ajax({
 		type: "POST",

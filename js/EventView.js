@@ -100,6 +100,9 @@ EventView = {
 	},
 	
 	btnScheduleClick: function() {
+		if (!Status.checkLogin())
+			return;	
+		
 		$('#scheduleloading').show();
 		$.ajax({
 			type: "POST",

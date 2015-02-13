@@ -17,8 +17,10 @@ var ContainerEditor = {
 		FeederView.updateSelection();
 	},
 	
-	btnSubmitClick: function() {
+	btnSubmitClick: function() {		
 		if (!ContainerEditor.btnsenabled)
+			return;
+		if (!Status.checkLogin())
 			return;
 		$('#containerbtnsubmitloading').show();
 		var containers = '';

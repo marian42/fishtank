@@ -67,6 +67,13 @@ Status = {
 		$('#alert')[0].innerHTML = message;
 		$('#alertwrapper').stop(true).fadeIn(100).animate({opacity:1}, 3000).fadeOut(100);
 	},
+	
+	checkLogin: function() {
+		if (this.rawdata.user != undefined)
+			return true;
+		this.alert('Login required', 2);
+		return false;
+	},
 
 	getCurrentSaturation: function() {
 		return Math.max(0, this.saturation - (Math.abs(this.saturationchanged.getTime() - Date.now())) / (1000.0 * 3600 * 24));

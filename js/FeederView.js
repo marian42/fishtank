@@ -321,6 +321,9 @@ FeederView = {
 	},
 	
 	btnFeedClick: function() {
+		if (!Status.checkLogin())
+			return;	
+		
 		$("#containerloading").show();
 		$.ajax({
 			type: "POST",
@@ -338,6 +341,9 @@ FeederView = {
 	},
 	
 	btnCalibrateClick: function() {
+		if (!Status.checkLogin())
+			return;	
+		
 		$("#containerloading").show();
 		$.ajax({
 			type: "POST",
