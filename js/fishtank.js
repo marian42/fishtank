@@ -66,7 +66,7 @@ $('#btnlogout').on("click",function (event) {
 		url: 'api/logout',
 		success: function(data) {
 			Status.rawdata.user = null;
-			Status.update()
+			Status.update(Status.rawdata)
 		},
 		error: function(){
 			
@@ -81,8 +81,8 @@ $('#divlogin').on("click",function (event) {
 
 $('#loginform').on('keypress', function(event) {
 	if (event.keyCode == 13) {
-		network.username = $('#inputusername').val();
-		network.password = $('#inputpassword').val();
+		Network.username = $('#inputusername').val();
+		Network.password = $('#inputpassword').val();
 		$("#loggingin").show();
 		
 		var username = $('#inputusername').val();
@@ -97,11 +97,11 @@ $('#loginform').on('keypress', function(event) {
 				$('#inputpassword').val('');
 				$("#loggingin").hide();
 				Status.rawdata.user = username;
-				Status.update()
+				Status.update(Status.rawdata)
 			},
 			error: function(){
 				$("#loggingin").hide();	
-				network.loggedin = false;						
+				Network.loggedin = false;						
 			}
 		});
 	}
