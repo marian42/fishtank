@@ -174,11 +174,13 @@ def dump():
 	index = int(request.form['to'])
 	if not current_user.is_authenticated():
 		if FoodStore.container[index].amount == 0:
-			return 'Can''t feed an empty container.', 400	
+			return 'Can''t feed an empty container.', 400
 		if not Lights.value:
 			return 'Can''t feed while lights are off.', 400
 		if FishTank.getSaturation() > 1:
 			return 'Can''t feed: Fish are not hungry.', 400
+		if FoodStore.container[index].priority >= 2:
+			return 'Can''t feed a locked container.', 400
 	
 	container = FoodStore.container[index]
 	FishFeeder.moveToAndDump(index)
