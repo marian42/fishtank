@@ -42,6 +42,8 @@ Status = {
 		$('#lightsvalue')[0].innerHTML = data.lights ? 'On' : 'Off'
 		$('#imglightstatus')[0].setAttribute('src','img/light' + (this.lights ? '0' : '1') + '.png')
 		this.updateTime();
+		
+		$('#alert').click(function() {$('#alertwrapper').stop(true).fadeOut(100);});
 	},
 
 	updateTime: function() {
@@ -53,6 +55,17 @@ Status = {
 		
 		$('#nexteventtime')[0].innerHTML = '<span title="' + (now.toDateString() != this.nexteventtime.toDateString() ? moment(this.nexteventtime).format('DD.MM.YYYY ') : '') + moment(this.nexteventtime).format('HH:mm') + '" class="tooltip2"><span>' + moment(this.nexteventtime).fromNow().substring(3) + '</span></span>';
 		$('#nextlighteventtime')[0].innerHTML = '<span title="' + (now.toDateString() != this.nextlighteventtime.toDateString() ? moment(this.nextlighteventtime).format('DD.MM.YYYY ') : '') + moment(this.nextlighteventtime).format('HH:mm') + '" class="tooltip2"><span>' + '(turns ' + (this.lights ? 'off' : 'on') + ' ' + moment(this.nextlighteventtime).fromNow() + ')</span></span>';
+	},
+	
+	alert: function(message, level) {
+		if (level === undefined)
+			level = 1;
+		$('#alert').toggleClass('alert-success', level == 0);
+		$('#alert').toggleClass('alert-info', level == 1);
+		$('#alert').toggleClass('alert-warning', level == 2);
+		$('#alert').toggleClass('alert-danger', level == 3);
+		$('#alert')[0].innerHTML = message;
+		$('#alertwrapper').stop(true).fadeIn(100).animate({opacity:1}, 3000).fadeOut(100);
 	},
 
 	getCurrentSaturation: function() {
