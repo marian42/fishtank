@@ -8,18 +8,17 @@ from pushbullet import PushBullet
 
 import FishTank
 import Camera
+import Config
 
 loglevels = ['log','info','event','warning','error','permanenterror']
-apiKey = "v1xhSH6ttgfNwBvwtbWcOqCcsrd0JvBaCyujBKHyJ8XxA"
-minPushLevel = 100 #2
 
-pushbullet = PushBullet(apiKey)
+pushbullet = PushBullet(Config.pbApiKey)
 devices = pushbullet.getDevices()
 devices[0]
 last = {}
 
 def connectToDB():
-	return MySQLdb.connect("localhost", "fishtank", "raspberry", "fishtank")
+	return MySQLdb.connect(Config.dbHost, Config.dbUser, Config.dbPassword, Config.dbDatabase)
 
 def getRecentEntries(count = -1, minlevel = 0, page = 1):
 	global last
@@ -53,7 +52,7 @@ def write(message, level = 0, image = 0, startedby = 'server', title = None):
 	except:
 		print traceback.format_exc()
 		print "Error while writing to the database"
-	if level >= minPushLevel:
+	if level >= Config.pbMinPushLevel:
 		if (image == 0):
 			start_new_thread(pushbullet.pushNote,(device['iden'],title if title != None else 'Fishtank (' + loglevels[level] + ')',message))
 		else:

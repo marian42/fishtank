@@ -1,5 +1,6 @@
 from subprocess import call
 
+import Config
 import FishTank
 
 value = False
@@ -20,7 +21,7 @@ def save(ini):
 	ini.set(section,'value',str(value))
 
 def broadcast():
-	call(["python","/var/www/fishtank/server/elro.py", "1", "1" if value else "0"])
+	call(["python", Config.path + "server/elro.py", "1", "1" if value else "0"])
 
 def switch():
 	global value

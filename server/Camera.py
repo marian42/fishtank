@@ -1,16 +1,12 @@
 import pygame.camera
 import pygame.image
 
+import Config
 import FishTank
 
-folder = '/var/www/fishtank/pics/'
-serverfolder = 'pics/'
-latest = 'latest.jpg'
-filename = 'img{}.jpg'
 counter = 0
 
 pygame.camera.init()
-
 cam = pygame.camera.Camera(pygame.camera.list_cameras()[0])
 		
 def takePicture():
@@ -25,10 +21,10 @@ def takePicture():
 	cam.stop()
 	
 	FishTank.updateStatus('Saving picture...')
-	pygame.image.save(img, folder + filename.format(str(counter)))
+	pygame.image.save(img, getPictureFilename(counter))
 	
 	FishTank.updateStatus('Ready')
 	return counter
 
-def getPictureFilename(self, index):
-	return folder + filename.format(str(index))
+def getPictureFilename(index):
+	return Config.path + Config.pictureFolder + Config.pictureFilename.format(str(index))

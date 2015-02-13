@@ -1,5 +1,7 @@
 from Container import Container
-size = 27
+import Config
+
+size = Config.size
 
 container = [Container(i) for i in range(size)]
 

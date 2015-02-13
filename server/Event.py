@@ -1,6 +1,7 @@
 import time, datetime
 import sys, traceback
 
+import Config
 import FishTank
 import Log
 import FishFeeder
@@ -149,7 +150,7 @@ class FeedEvent(Event):
 
 	def getContainerCandidates(self):
 		candidates = [container for container in FoodStore.container if (container.food != 0 and container.amount != 0 and container.priority != 3 and self.food[container.food-1] and container.amount >= self.minAmount and container.amount <= self.maxAmount)]
-		candidates = sorted(candidates, key = lambda container: (container.priority, container.filled, container.index - FishFeeder.position if container.index >= FishFeeder.position else container.index - FishFeeder.position + FoodStore.size))
+		candidates = sorted(candidates, key = lambda container: (container.priority, container.filled if Config.preferOldContainers else 0, container.index - FishFeeder.position if container.index >= FishFeeder.position else container.index - FishFeeder.position + FoodStore.size))
 		return candidates
 
 	def getNextExecution(self, after = None):

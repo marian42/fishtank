@@ -11,6 +11,7 @@ import hashlib
 import flask.ext.login
 from random import randint
 
+import Config
 import EventList
 import Log
 import FishTank
@@ -41,7 +42,7 @@ users = loadUsers()
 
 login_manager = LoginManager()
 app = Flask(__name__, static_folder='../', static_url_path='')
-app.secret_key = '123456123456'
+app.secret_key = Config.secretKey
 login_manager.init_app(app)
 
 #Enable this only in development mode
