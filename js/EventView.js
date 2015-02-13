@@ -74,9 +74,11 @@ EventView = {
 	},
 	
 	updateTime: function() {
-		var now = new Date();
-		$('#currenttime')[0].setAttribute('x1',(now.getHours() * 10 + now.getMinutes() / 6));
-		$('#currenttime')[0].setAttribute('x2',(now.getHours() * 10 + now.getMinutes() / 6));
+		var offset = 1;
+		var now = new Date(new Date().getTime() + offset * 3600 * 1000);
+
+		$('#currenttime')[0].setAttribute('x1',(now.getUTCHours() * 10 + now.getUTCMinutes() / 6));
+		$('#currenttime')[0].setAttribute('x2',(now.getUTCHours() * 10 + now.getUTCMinutes() / 6));
 		
 		for (var i = 0; i < this.markers.length; i++) {
 			var arr = explodeBinArray(this.markers[i].event.day, 7);
