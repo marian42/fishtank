@@ -82,17 +82,15 @@
 
 				<div style="height:20px; display:box;"></div>
 
-				<!-- Jumbotron -->
-				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="jumbotron" style="display:none;">
-					<div class="jumbotron">
-						<h1>Hi there! You can feed my fish!</h1>
-						<p>Select a container below and click Feed.</p>
-						<p>This is the control panel of my internet-connected fish tank. Guests may choose fish food and trigger the automated fish feeder when the fish are hungry and awake.</p>
-						<p>The project is made with an Arduino and a Raspberry Pi. Read more about how it works here.</p>
-						<p><a class="btn btn-primary btn-lg" role="button" href="#containers">Select food</a></p>
+				<!-- Hint -->
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="guesthint" style="display:none;">
+					<div class="alert alert-success alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close" id="dismisshint"><span aria-hidden="true">&times;</span></button>
+						<strong>Welcome to my internet-connected fish tank!</strong> My fish are currently hungry. Select a container below to feed them.
 					</div>
 				</div>
 
+				<!-- Alert -->
 				<div class="col-md-4 col-md-offset-4 col-xs-12 anchor" style="position:fixed; z-index:1000; margin-top:10px; display:none;" id="alertwrapper">					
 					<div class="alert alert-success" role="alert" style="box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.57); text-align:center;" id="alert"></div>
 				</div>

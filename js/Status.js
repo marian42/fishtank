@@ -2,6 +2,7 @@ Status = {
 	status: '',
 	updated: false,
 	version: 0,
+	dismissedHint: false,
 		
 	update: function(data) {
 		this.rawdata = data;
@@ -31,6 +32,7 @@ Status = {
 			$('#currentuser')[0].innerHTML = data.user;
 			$('#btnlogout').show();
 			$('#btnaddnote').show();
+			this.dismissedHint = true;
 		}
 		else {
 			$('#btnlogin').show();
@@ -44,6 +46,11 @@ Status = {
 		this.updateTime();
 		
 		$('#alert').click(function() {$('#alertwrapper').stop(true).fadeOut(100);});
+		
+		if (!data.user && data.lights && this.getCurrentSaturation() <= 1 && !this.dismissedHint) {
+			$('#guesthint').show(100);
+			$('#dismisshint').click(function() {Status.dismissedHint = true;});
+		}
 	},
 
 	updateTime: function() {
