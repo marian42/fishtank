@@ -4,6 +4,7 @@ ImageView = {
 	images: new Array(),
 	imgserver: '/pics/',
 	btntakepictureenabled: true,
+	firstupdate: true,
 	
 	wrapper: $('#showpicwrapper')[0],
 	picture: $('#picture')[0],	
@@ -47,13 +48,17 @@ ImageView = {
 				var img = $(this.images[p].img);
 				img.load(function() {
 					img.show(400);
+					$('#latestpicture')[0].setAttribute('src', ImageView.getImageUrl(ImageView.count));			
 				});
 			}
 			p++;
 		}
 		
-		$('#latestpicture')[0].setAttribute('src', this.getImageUrl(this.count));
-		$('#latestpicture').click(this.makeShowImage(this.count));
+		if (this.firstupdate) {
+			$('#latestpicture')[0].setAttribute('src', this.getImageUrl(this.count));
+			$('#latestpicture').click(this.makeShowImage(this.count));
+			this.firstupdate = false;
+		}
 	},
 
 	showImage: function(id) {
