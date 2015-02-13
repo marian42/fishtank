@@ -320,10 +320,7 @@ FeederView = {
 		}
 	},
 	
-	btnFeedClick: function() {
-		if (!Status.checkLogin())
-			return;	
-		
+	btnFeedClick: function() {		
 		$("#containerloading").show();
 		$.ajax({
 			type: "POST",

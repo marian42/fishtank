@@ -170,10 +170,18 @@ def moveFeeder():
 	return 'ok'
 
 @app.route("/api/dump", methods=['POST'])
-@login_required
 def dump():
-	container = FoodStore.container[int(request.form['to'])]
-	FishFeeder.moveToAndDump(int(request.form['to']))
+	index = int(request.form['to'])
+	if not current_user.is_authenticated():
+		if FoodStore.container[index].amount == 0:
+			return 'Can''t feed an empty container.', 400	
+		if not Lights.value:
+			return 'Can''t feed while lights are off.', 400
+		if FishTank.getSaturation() > 1:
+			return 'Can''t feed: Fish are not hungry.', 400
+	
+	container = FoodStore.container[index]
+	FishFeeder.moveToAndDump(index)
 	if (FishFeeder.status == FishFeeder.FishFeederStatus.ERROR):
 		Log.write(message = 'Manual feeding failed (mechanical failure).', level = 3, image = imageId, startedby = current_user.id)
 		return
