@@ -19,3 +19,15 @@ Apache
 	
 Configuration
 	Copy config.ini, users.ini and state.ini to the server folder and edit config and users (Hash algorithm is sha512)
+	
+Set up Database
+	CREATE TABLE `log` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `time` datetime NOT NULL,
+	  `message` varchar(255) NOT NULL,
+	  `level` int(11) NOT NULL,
+	  `image` int(11) NOT NULL,
+	  `startedby` varchar(45) NOT NULL,
+	  PRIMARY KEY (`id`),
+	  UNIQUE KEY `id_UNIQUE` (`id`)
+	) ENGINE=InnoDB AUTO_INCREMENT=978 DEFAULT CHARSET=latin1;
