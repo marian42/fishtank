@@ -116,7 +116,29 @@ EventView = {
 				Network.onRequestComplete(data);
 			}
 		});
+	},
+	
+	updateSunriseSunset: function() {
+		var lat = 51.328 * Math.PI / 180.0;
+
+		var now = new Date();
+		var start = new Date(now.getFullYear(), 0, 0);
+		var diff = now - start;
+		var oneDay = 1000 * 60 * 60 * 24;
+		var day = Math.floor(diff / oneDay);
+
+		var declination = -23.44 * Math.PI / 180.0 * Math.cos(2.0 * Math.PI * (day + 10) / 365);
+		var hour_angle = Math.acos(-Math.tan(lat) * Math.tan(declination));
+
+		var sunrise = 0.5 - hour_angle / (2.0 * Math.PI);
+		var sunset = 0.5 + hour_angle / (2.0 * Math.PI);
+		
+		$('#stop3771')[0].setAttribute('offset', sunrise);
+		$('#stop3763')[0].setAttribute('offset', sunrise + 0.06);
+		$('#stop3767')[0].setAttribute('offset', sunset - 0.06);
+		$('#stop3773')[0].setAttribute('offset', sunset);
 	}
 };
 
 EventView.setup();
+EventView.updateSunriseSunset();
