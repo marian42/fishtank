@@ -648,8 +648,33 @@
 				<!-- About -->
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main anchor" id="about">
 					<h1 class="page-header">About</h1>
-					Information about the project<br><br>
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
+					<div class="col-sm-12 col-md-6" id="about" style="padding-left: 0px; padding-right:0px;">
+						<h3>Hardware</h2>
+						This is my internet-connected fishtank.
+						It'is powered by a Raspberry Pi.
+						It features a fish feeder, a camera and a light switch.
+						The fish feeder is an automatic fish feeder that was modified to empty an arbitrary container at any time, instead of only the next container each day.
+						Inside the fish feeder there is an Arduino Pro Mini, some sensors and a motor (<a href="http://marian42.de/?p=508">read more</a>).
+						The Raspberry Pi can switch the light with an elro remote power switch by sending a command through a 433Mhz transmitter.
+						Finally, there is a webcam to observe the fish.<br><br>
+					</div>
+					<div class="col-sm-12 col-md-6" id="about" style="padding-left: 0px; padding-right:0px;">
+						<img src="http://marian42.de/wp-content/uploads/openclose-1024x461.jpg" width="100%">
+					</div>
+					<div class="col-sm-12 col-md-6" id="about" style="padding-left: 0px; padding-right:0px;">
+						<h3>Software</h2>
+						The project uses a Flask / Python / Apache server and Javascript and Bootstrap on the client side.<br><br>
+						Find the source code on <a href="https://github.com/marian42/fishtank">github</a>.
+					</div>
+					<div class="col-sm-12 col-md-6" id="about" style="padding-left: 0px; padding-right:0px;">
+						<h3>Events</h2>
+						The Raspberry Pi will perform scheduled events like feeding, switching the light and taking pictures.
+						It skips feed events if the fish are not hungry.<br><br>
+						To determine the hungriness of the fish, a value is stored and increased each time the fish are fed.
+						It gradually decreases by 1 each day but it doesn't go below 0.
+						If the saturation value is below 1 and the lights are on, any guest may click a container and feed the fish.<br><br>
+						The server uses the Pushbullet API to send me a picture of my happy fish right after they have been fed. It also notifies me if the food containers need to be refilled.
+					</div>
 				</div>
 			</div>
 		</div>
