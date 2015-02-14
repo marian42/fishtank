@@ -1,4 +1,4 @@
-import time
+import time, datetime
 import serial
 from thread import start_new_thread
 
@@ -40,9 +40,14 @@ onChangeProgress = None
 ser = serial.Serial("/dev/ttyAMA0", 9600)
 ser.open();
 
-def _wait():
-	while (status != FishFeederStatus.READY and status != FishFeederStatus.ERROR):
+def _wait(timeout = 180):
+	global status
+	start = datetime.datetime.now()
+	while (status != FishFeederStatus.READY and status != FishFeederStatus.ERROR and (datetime.datetime.now() - start).seconds > timeout):
 		time.sleep(0.01)
+		
+	if (datetime.datetime.now() - start).seconds > timeout:
+		status = FishFeederStatus.ERROR
 
 def flash(r, g, b, duration):
 	global status

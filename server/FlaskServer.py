@@ -148,6 +148,11 @@ def flashLED():
 @login_required
 def calibrate():
 	FishFeeder.calibrate()
+	
+	if FishFeeder.status == FishFeeder.FishFeederStatus.ERROR:
+		Log.write(message = 'Moving feeder failed (mechanical failure).', level = 5, startedby = current_user.id)
+		return 'ok'
+	
 	Log.write(message = 'Calibrated feeder ', level = 1, startedby = current_user.id)
 	return 'ok'
 
@@ -166,6 +171,11 @@ def checkForUpdate():
 @login_required
 def moveFeeder():
 	FishFeeder.moveTo(int(request.form['to']))
+	
+	if FishFeeder.status == FishFeeder.FishFeederStatus.ERROR:
+		Log.write(message = 'Moving feeder failed (mechanical failure).', level = 5, startedby = current_user.id)
+		return
+	
 	Log.write(message = 'Moved feeder to position ' + str(int(request.form['to'])+1), level = 1, startedby = current_user.id)
 	return 'ok'
 
@@ -182,19 +192,20 @@ def dump():
 		if FoodStore.container[index].priority >= 2:
 			return 'Can''t feed a locked container.', 400
 	
+	username = 'guest'
+	if current_user.is_authenticated():
+		username = current_user.id	
+	
 	container = FoodStore.container[index]
 	FishFeeder.moveToAndDump(index)
-	if (FishFeeder.status == FishFeeder.FishFeederStatus.ERROR):
-		Log.write(message = 'Manual feeding failed (mechanical failure).', level = 3, image = imageId, startedby = current_user.id)
-		return
+	if FishFeeder.status == FishFeeder.FishFeederStatus.ERROR:
+		Log.write(message = 'Manual feeding failed (mechanical failure).', level = 5, startedby = username)
+		return 'ok'
 
 	oldsaturation = FishTank.getSaturation()
 	if container.amount != 0:
 		FishTank.setSaturation(oldsaturation + container.amount)
-	username = 'guest'
-	if current_user.is_authenticated():
-		username = current_user.id
-	Log.write(title= "Fed fish", message = 'Manually fed container ' + str(container.index + 1) + ' (Food ' + str(container.food) + '), Saturation: ' + "{0:.1f}".format(oldsaturation) + ' -> ' + "{0:.1f}".format(oldsaturation + container.amount) + ' (+' + "{0:.1f}".format(container.amount) + ')', level = 2, startedby = username)
+	Log.write(title = "Fed fish", message = 'Manually fed container ' + str(container.index + 1) + ' (Food ' + str(container.food) + '), Saturation: ' + "{0:.1f}".format(oldsaturation) + ' -> ' + "{0:.1f}".format(oldsaturation + container.amount) + ' (+' + "{0:.1f}".format(container.amount) + ')', level = 2, startedby = username)
 	container.empty()
 	FishTank.increaseVersion()
 	FishTank.save()
