@@ -83,7 +83,7 @@ def onFishFeederUpdate(oldstatus, newstatus):
 	global status
 
 	if (newstatus == FishFeeder.FishFeederStatus.CALIBRATING):
-		log.write(message = 'Calibrating fish feeder.', level = 1, startedby = 'FishFeeder')
+		Log.write(message = 'Calibrating fish feeder.', level = 1, startedby = 'FishFeeder')
 	status = FishFeeder.FishFeederStatus.getMessage(newstatus)
 	increaseVersion()
 
