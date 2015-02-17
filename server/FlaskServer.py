@@ -174,7 +174,7 @@ def moveFeeder():
 	
 	if FishFeeder.status == FishFeeder.FishFeederStatus.ERROR:
 		Log.write(message = 'Moving feeder failed (mechanical failure).', level = 5, startedby = current_user.id)
-		return
+		return 'ok'
 	
 	Log.write(message = 'Moved feeder to position ' + str(int(request.form['to'])+1), level = 1, startedby = current_user.id)
 	return 'ok'
