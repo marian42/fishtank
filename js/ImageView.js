@@ -56,9 +56,10 @@ ImageView = {
 		
 		if (this.firstupdate) {
 			$('#latestpicture')[0].setAttribute('src', this.getImageUrl(this.count));
-			$('#latestpicture').click(this.makeShowImage(this.count));
 			this.firstupdate = false;
 		}
+		
+		$('#latestpicture').click(this.makeShowImage(this.count));
 	},
 
 	showImage: function(id) {
