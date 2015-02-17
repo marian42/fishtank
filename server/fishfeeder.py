@@ -43,7 +43,7 @@ ser.open();
 def _wait(timeout = 180):
 	global status
 	start = datetime.datetime.now()
-	while (status != FishFeederStatus.READY and status != FishFeederStatus.ERROR and (datetime.datetime.now() - start).seconds > timeout):
+	while (status != FishFeederStatus.READY and status != FishFeederStatus.ERROR and (datetime.datetime.now() - start).seconds < timeout):
 		time.sleep(0.01)
 		
 	if (datetime.datetime.now() - start).seconds > timeout:
