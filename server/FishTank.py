@@ -72,9 +72,9 @@ def getSerializeable():
 		'feeder': FishFeeder.getSerializeable(),
 		'foodamount': getFoodAmount(),
 		'autofeedamount': getAutoFeedAmount(),
-		'nexteventtype': nextEvent.type,
-		'nexteventtime': time.mktime(nextEvent.getNextExecution().timetuple()),
-		'nextlighteventtime': time.mktime(getNextLightEvent().getNextExecution().timetuple()),
+		'nexteventtype': nextEvent.type if nextEvent is not None else None,
+		'nexteventtime': time.mktime(nextEvent.getNextExecution().timetuple()) if nextEvent is not None else None,
+		'nextlighteventtime': time.mktime(getNextLightEvent().getNextExecution().timetuple()) if getNextLightEvent() is not None else None,
 		'lights': Lights.value,
 		'scheduling': EventList.enabled
 	}

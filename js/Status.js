@@ -20,11 +20,13 @@ Status = {
 		this.autofeedamount = data.autofeedamount;
 		$('#statusautofeedamount')[0].innerHTML = this.autofeedamount.toFixed(1);
 		
-		this.nexteventtime = new Date(data.nexteventtime * 1000);
+		this.nexteventtime = data.nexteventtime ? new Date(data.nexteventtime * 1000) : null;
 		this.nexteventtype = data.nexteventtype;
 		var eventtypes = ['Feed','Light','Take picture'];
-		$('#nexteventtype')[0].innerHTML = '(' + eventtypes[this.nexteventtype] + ')';
-		this.nextlighteventtime = new Date(data.nextlighteventtime * 1000);
+		if (data.nexteventtype)
+			$('#nexteventtype')[0].innerHTML = '(' + eventtypes[this.nexteventtype] + ')';
+		else $('#nexteventtype')[0].innerHTML = '(nothing planned)';
+		this.nextlighteventtime = data.nextlighteventtime ? new Date(data.nextlighteventtime * 1000) : null;
 		
 		if (data.user) {
 			$('#btnlogin').hide();
@@ -62,8 +64,12 @@ Status = {
 		var now = new Date();
 		$('#statuslastfed')[0].innerHTML = '<span title="' + (now.toDateString() != this.saturationchanged.toDateString() ? moment(this.saturationchanged).format('DD.MM.YYYY ') : '') + moment(this.saturationchanged).format('HH:mm') + '" class="tooltip2"><span>last fed ' +  moment(this.saturationchanged).fromNow() + '</span></span>';//'last fed ' + moment(this.saturationchanged).fromNow();
 		
-		$('#nexteventtime')[0].innerHTML = '<span title="' + (now.toDateString() != this.nexteventtime.toDateString() ? moment(this.nexteventtime).format('DD.MM.YYYY ') : '') + moment(this.nexteventtime).format('HH:mm') + '" class="tooltip2"><span>' + moment(this.nexteventtime).fromNow().substring(3) + '</span></span>';
-		$('#nextlighteventtime')[0].innerHTML = '<span title="' + (now.toDateString() != this.nextlighteventtime.toDateString() ? moment(this.nextlighteventtime).format('DD.MM.YYYY ') : '') + moment(this.nextlighteventtime).format('HH:mm') + '" class="tooltip2"><span>' + '(turns ' + (this.lights ? 'off' : 'on') + ' ' + moment(this.nextlighteventtime).fromNow() + ')</span></span>';
+		if (this.nexteventtime)
+			$('#nexteventtime')[0].innerHTML = '<span title="' + (now.toDateString() != this.nexteventtime.toDateString() ? moment(this.nexteventtime).format('DD.MM.YYYY ') : '') + moment(this.nexteventtime).format('HH:mm') + '" class="tooltip2"><span>' + moment(this.nexteventtime).fromNow().substring(3) + '</span></span>';
+		else $('#nexteventtime')[0].innerHTML = '';
+		if (this.nextlighteventtime)
+			$('#nextlighteventtime')[0].innerHTML = '<span title="' + (now.toDateString() != this.nextlighteventtime.toDateString() ? moment(this.nextlighteventtime).format('DD.MM.YYYY ') : '') + moment(this.nextlighteventtime).format('HH:mm') + '" class="tooltip2"><span>' + '(turns ' + (this.lights ? 'off' : 'on') + ' ' + moment(this.nextlighteventtime).fromNow() + ')</span></span>';
+		else $('#nextlighteventtime')[0].innerHTML = '';
 	},
 	
 	alert: function(message, level) {
