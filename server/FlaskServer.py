@@ -230,7 +230,7 @@ def login():
 	except:
 		hashfailed = True
 	if not hashfailed and user and user.hash == hashalgorithm.hexdigest():
-		login_user(user)
+		login_user(user, remember = True)
 		print('login successful (' + user.name + ')')
 		return 'ok'
 	else:
