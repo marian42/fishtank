@@ -14,7 +14,7 @@ loglevels = ['log','info','event','warning','error','permanenterror']
 
 pushbullet = PushBullet(Config.pbApiKey)
 devices = pushbullet.getDevices()
-devices[0]
+device = devices[0]
 last = {}
 
 def connectToDB():
