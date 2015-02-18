@@ -9,7 +9,6 @@ from flask_login import *
 from flask.ext.login import (LoginManager, UserMixin, login_required, login_user, logout_user, current_user)
 import hashlib
 import flask.ext.login
-from random import randint
 
 import Config
 import EventList
@@ -82,7 +81,7 @@ def addLogNote():
 @app.route("/api/updatecontainers", methods=['POST'])
 @login_required
 def updateContainers():
-	containers = string.split(request.form['containers'],',')
+	containers = string.split(request.form['containers'], ',')
 	food = int(request.form['food'])
 	amount = float(request.form['amount'])
 	priority = int(request.form['priority'])
@@ -115,7 +114,7 @@ def updateEvent():
 def deleteEvent():
 	event = EventList.getEvent(int(request.form['id']))
 	if event == None:
-		return 'Event not found', 400
+		return 'Event not found', 404
 	EventList.events.remove(event)
 	Log.write(message = 'Deleted event (' + EventList.names[event.type] + ' at ' + str(event.hour) + ':' + ('0' if event.minute < 10 else '') + str(event.minute) + ')', startedby = current_user.id)
 	return 'ok'
@@ -156,7 +155,7 @@ def calibrate():
 		Log.write(message = 'Moving feeder failed (mechanical failure).', level = 5, startedby = current_user.id)
 		return 'ok'
 	
-	Log.write(message = 'Calibrated feeder ', level = 1, startedby = current_user.id)
+	Log.write(message = 'Calibrated feeder', level = 1, startedby = current_user.id)
 	return 'ok'
 
 @app.route("/api/checkforupdate")
@@ -231,7 +230,7 @@ def login():
 	except:
 		hashfailed = True
 	if not hashfailed and user and user.hash == hashalgorithm.hexdigest():
-		login_user(user, remember = True)
+		login_user(user)
 		print('login successful (' + user.name + ')')
 		return 'ok'
 	else:
@@ -241,5 +240,6 @@ def login():
 @app.route("/api/logout", methods=['POST'])
 @login_required
 def logout():
+	print('user logged out (' + current_user.name + ')')
 	logout_user()
 	return redirect('/');
