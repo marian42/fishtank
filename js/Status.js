@@ -23,7 +23,7 @@ Status = {
 		this.nexteventtime = data.nexteventtime ? new Date(data.nexteventtime * 1000) : null;
 		this.nexteventtype = data.nexteventtype;
 		var eventtypes = ['Feed','Light','Take picture'];
-		if (data.nexteventtype)
+		if (data.nexteventtype !== null)
 			$('#nexteventtype')[0].innerHTML = '(' + eventtypes[this.nexteventtype] + ')';
 		else $('#nexteventtype')[0].innerHTML = '(nothing planned)';
 		this.nextlighteventtime = data.nextlighteventtime ? new Date(data.nextlighteventtime * 1000) : null;
