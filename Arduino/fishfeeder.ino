@@ -2,7 +2,8 @@
 #include <EEPROM.h>
 
 int pinled = 2;
-int pinservo = 3;
+int pinservodump = 3;
+int pinservoopen = 6;
 int pinmotor = 4;
 int pinmotorspeed = 5;
 int pingreen = 10;
@@ -18,8 +19,10 @@ const int fullrotation = 210;
 const int containers = 28;
 const int motorspeed = 255;
 
-const int servoup = 159;
-const int servodown = 63;
+const int servodumpup = 159;
+const int servodumpdown = 63;
+const int servoopenopen = 1;
+const int servoopenclosed = 180;
 
 const int address_calibrated = 1;
 const int address_position = 2;
@@ -32,11 +35,13 @@ long timeout = 0;
 
 boolean errorstate = false;
 
-SoftwareServo servo;
+SoftwareServo servodump;
+SoftwareServo servoopen;
 
 void setup() {
 	pinMode(pinled, OUTPUT);		
-	pinMode(pinservo, OUTPUT);		
+	pinMode(pinservodump, OUTPUT);		
+	pinMode(pinservoopen, OUTPUT);		
 	pinMode(pinmotor, OUTPUT);		
 	pinMode(pinmotorspeed, OUTPUT);		
 	pinMode(pinred, OUTPUT);		
@@ -49,9 +54,12 @@ void setup() {
 	
 	Serial.begin(9600);
 	
-	servo.attach(pinservo);
-	servo.write(servoup);
-	
+	servodump.attach(pinservodump);
+	servodump.write(servodumpup);
+	delayandrefresh(300);
+	servoopen.attach(pinservoopen);
+	servoopen.write(servoopenclosed);
+
 	if (EEPROM.read(address_calibrated) == 1) {
 		calibrated = true;
 		position = (float)EEPROM.read(address_position) * (float)containers / (float)fullrotation;
@@ -63,11 +71,11 @@ void setup() {
 	}
 	
 	for (int i = 0; i < 3; i++) {
-		delay(200);
+		delayandrefresh(200);
 		if (calibrated)
 			setcolor(0,255,0);
 		else setcolor(100,255,0);
-		delay(200);
+		delayandrefresh(200);
 		setcolor(0,0,0);
 	}
 }
@@ -228,17 +236,23 @@ void delayandrefresh(int t) {
 
 void flush() {
 	setcolor(128,0,200);
-	servo.write(servodown);
+
+	servoopen.write(servoopenopen);
+	delayandrefresh(500);	
+
+	servodump.write(servodumpdown);
 	delayandrefresh(600);
-	servo.write(servoup);
+	servodump.write(servodumpup);
 
-	delayandrefresh(1000);
-	servo.write(servodown);
-	delayandrefresh(2000);
-	servo.write(servoup);
+	delayandrefresh(800);
+	servodump.write(servodumpdown);
+	delayandrefresh(600);
+	servodump.write(servodumpup);
 
+	delayandrefresh(600);
 	setcolor(0,0,0);
-	delayandrefresh(600);
+	servoopen.write(servoopenclosed);
+	delayandrefresh(500);
 }
 
 void checkserial() {
