@@ -90,7 +90,7 @@ def onFishFeederUpdate(oldstatus, newstatus):
 FishFeeder.setOnChangeStatusListener(onFishFeederUpdate)
 	
 def getSaturation():
-	days = (datetime.datetime.now() - saturationchanged).seconds / (60.0 * 60.0 * 24.0)
+	days = (datetime.datetime.now() - saturationchanged).total_seconds() / (60.0 * 60.0 * 24.0)
 	return max(0, saturation - days)
 
 def setSaturation(value):
