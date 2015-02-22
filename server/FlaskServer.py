@@ -207,7 +207,7 @@ def dump():
 	oldsaturation = FishTank.getSaturation()
 	if container.amount != 0:
 		FishTank.setSaturation(oldsaturation + container.amount)
-	Log.write(title = "Fed fish", message = 'Manually fed container ' + str(container.index + 1) + ' (Food ' + str(container.food) + '), Saturation: ' + "{0:.1f}".format(oldsaturation) + ' -> ' + "{0:.1f}".format(oldsaturation + container.amount) + ' (+' + "{0:.1f}".format(container.amount) + ')', level = 2, startedby = username)
+	Log.write(title = "Fed fish", message = 'Manually fed container ' + str(container.index + 1) + ' (Food ' + str(container.food) + '), Saturation: ' + "{0:.1f}".format(oldsaturation) + ' -> ' + "{0:.1f}".format(oldsaturation + container.amount) + ' (+' + "{0:.1f}".format(container.amount) + ')', level = 2 if container.amount != 0 else 0, startedby = username)
 	container.empty()
 	FishTank.increaseVersion()
 	FishTank.save()
