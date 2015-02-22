@@ -8,7 +8,7 @@ import FishTank
 counter = 0
 
 pygame.camera.init()
-cam = pygame.camera.Camera(pygame.camera.list_cameras()[0])
+cam = pygame.camera.Camera(pygame.camera.list_cameras()[0], (1280, 720))
 lastPictureTaken = datetime.datetime.fromtimestamp(0)
 		
 def takePicture():
