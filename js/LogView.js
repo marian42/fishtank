@@ -97,7 +97,7 @@ LogView = {
 		for (var i = 0; i < this.currentData.length; i++) {		
 			var date = new Date(this.currentData[i][1] * 1000);
 			var now = new Date();
-			$('#timestamp' + this.currentData[i][0])[0].innerHTML = '<span class="hidden-xs" title="' + moment(date).calendar() + '" class="tooltip2"><span>' + moment(date).fromNow() + '</span></span><span class="visible-xs" title="' + moment(date).fromNow() + '" class="tooltip2"><span>' + moment(date).format('h:mm') + '</span></span>';
+			$('#timestamp' + this.currentData[i][0])[0].innerHTML = '<span class="hidden-xs" title="' + moment(date).calendar() + '" class="tooltip2"><span>' + moment(date).fromNow() + '</span></span><span class="visible-xs" title="' + moment(date).fromNow() + '" class="tooltip2"><span>' + (((new Date) - date) < (24 * 60 * 60 * 1000) ? moment(date).format('HH:mm') : moment(date).format('DD.MM')) + '</span></span>';
 		}
 	},
 	
