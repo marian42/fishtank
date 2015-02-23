@@ -1,4 +1,4 @@
-Network.checkForUpdate();
+Network.updateStatus(Network.checkForUpdate);
 
 var ledcolor = 'rgb(0,0,255)';
 
