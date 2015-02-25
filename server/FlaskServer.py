@@ -105,8 +105,11 @@ def updateContainers():
 @app.route("/api/updateevent", methods=['POST'])
 @login_required
 def updateEvent():
-	event = EventList.update(request.form)
-	Log.write(message = ('Updated' if request.form['event'] != '-1' else 'Created') + ' event (' + EventList.names[event.type] + ' at ' + str(event.hour) + ':' + ('0' if event.minute < 10 else '') + str(event.minute) + ')', startedby = current_user.id)
+	try:
+		event = EventList.update(request.form)
+		Log.write(message = ('Updated' if request.form['event'] != '-1' else 'Created') + ' event (' + EventList.names[event.type] + ' at ' + str(event.hour) + ':' + ('0' if event.minute < 10 else '') + str(event.minute) + ')', startedby = current_user.id)
+	except:
+		return 'Invalid event data.', 400
 	return 'ok'
 
 @app.route("/api/deleteevent", methods=['POST'])
