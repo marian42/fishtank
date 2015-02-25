@@ -61,9 +61,9 @@ def update(params):
 	
 	if type == 0:
 		event.setFoodInt(int(params['food']))
-		event.maxSaturation = int(params['maxsaturation'])
-		event.minAmount = int(params['minamount'])
-		event.maxAmount = int(params['maxamount'])
+		event.maxSaturation = float(params['maxsaturation'])
+		event.minAmount = float(params['minamount'])
+		event.maxAmount = float(params['maxamount'])
 	elif type == 1:
 		event.value = params['value'] == 'true'
 	
