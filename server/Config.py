@@ -9,6 +9,7 @@ preferOldContainers = config.getboolean('general', 'preferoldcontainers')
 
 pbApiKey = config.get('pushbullet', 'apikey')
 pbMinPushLevel = config.getint('pushbullet', 'minpushlevel')
+pbDevices = config.get('pushbullet', 'devices').split(',')
 
 dbHost = config.get('database', 'host')
 dbUser = config.get('database', 'user')

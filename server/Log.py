@@ -13,8 +13,6 @@ import Config
 loglevels = ['log','info','event','warning','error','permanenterror']
 
 pushbullet = PushBullet(Config.pbApiKey)
-devices = pushbullet.getDevices()
-device = devices[0]
 last = {}
 
 def connectToDB():
@@ -52,9 +50,10 @@ def write(message, level = 0, image = 0, startedby = 'server', title = None):
 	except:
 		traceback.print_exec(file = sys.stdout)
 	if level >= Config.pbMinPushLevel:
-		if (image == 0):
-			start_new_thread(pushbullet.pushNote,(device['iden'],title if title != None else 'Fishtank (' + loglevels[level] + ')',message))
-		else:
-			start_new_thread(pushbullet.pushFile,(device['iden'],title if title != None else 'Fishtank (' + loglevels[level] + ')', message, open(Camera.getPictureFilename(image), "rb")));
+		for device in Config.pbDevices:
+			if (image == 0):
+				start_new_thread(pushbullet.pushNote, (device, title if title != None else 'Fishtank (' + loglevels[level] + ')',message))
+			else:
+				start_new_thread(pushbullet.pushFile, (device, title if title != None else 'Fishtank (' + loglevels[level] + ')', message, open(Camera.getPictureFilename(image), "rb")));
 	FishTank.increaseVersion()
 	FishTank.save()
