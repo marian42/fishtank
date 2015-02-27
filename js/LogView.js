@@ -130,6 +130,10 @@ LogView = {
 			data: {level: LogView.notelevel, note: $('#notetext').val()},
 			success: function(data) {
 				$('#notetext').val('');
+				LogView.minlevel = Math.min(LogView.minlevel, LogView.notelevel);
+				LogView.page = 1;
+				if (LogView.minlevel != 0)
+					LogView.refresh();
 				LogView.notelevel = 0;
 			},
 			complete: function(data){
