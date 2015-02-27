@@ -135,9 +135,9 @@ class FeedEvent(Event):
 	def readFromIni(self, ini, section):
 		super(FeedEvent,self).readFromIni(ini,section)
 		self.setFoodInt(ini.getint(section, 'food'))
-		self.maxSaturation = ini.getint(section,'maxSaturation')
-		self.minAmount = ini.getint(section,'minAmount')
-		self.maxAmount = ini.getint(section,'maxAmount')
+		self.maxSaturation = ini.getfloat(section,'maxSaturation')
+		self.minAmount = ini.getfloat(section,'minAmount')
+		self.maxAmount = ini.getfloat(section,'maxAmount')
 
 	def getSerializeable(self):
 		result = super(FeedEvent,self).getSerializeable()
