@@ -146,7 +146,7 @@ def getPosition():
 	ser.write(chr(13))
 	result = ord(ser.read())
 	status = FishFeederStatus.BUSY
-	_wait()
+	_wait(2)
 	return result
 	
 #TODO getping
