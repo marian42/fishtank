@@ -129,12 +129,17 @@ def takePicture():
 		
 	if not current_user.is_authenticated() and datetime.datetime.now() - Camera.lastPictureTaken < datetime.timedelta(minutes = 5):
 		return 'Taking too many pictures, please wait ' + str(int((Camera.lastPictureTaken + datetime.timedelta(minutes = 5) - datetime.datetime.now()).seconds / 60) + 1) + str(' minutes.'), 400
-
-	id = Camera.takePicture();
-	username = 'guest'
-	if current_user.is_authenticated():
-		username = current_user.id
-	Log.write(message = 'Took picture', level = 1, image = id, startedby = username)
+	
+	try:
+		id = Camera.takePicture();
+		username = 'guest'
+		if current_user.is_authenticated():
+			username = current_user.id
+		Log.write(message = 'Took picture', level = 1, image = id, startedby = username)
+	except Camera.NoCameraException:
+		return 'Can''t take a picture: No camera found.', 500
+	except:
+		return 'Error while trying to take a picture', 500
 	return 'ok'
 
 @app.route("/api/switchlights", methods=['POST'])
@@ -211,7 +216,7 @@ def dump():
 	if not current_user.is_authenticated():
 		FishTank.updateStatus('Waiting...')
 		time.sleep(4)
-		imageId = Camera.takePicture();
+		imageId = Camera.tryTakePicture();
 	
 	oldsaturation = FishTank.getSaturation()
 	if container.amount != 0:

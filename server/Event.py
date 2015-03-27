@@ -176,7 +176,7 @@ class FeedEvent(Event):
 		FishFeeder.moveToAndDump(candidate.index)
 		FishTank.updateStatus('Waiting...')
 		time.sleep(7)
-		imageId = Camera.takePicture();
+		imageId = Camera.tryTakePicture();
 		if (FishFeeder.status == FishFeeder.FishFeederStatus.ERROR):
 			Log.write(message = 'Automatic feeding failed (mechanical failure).', level = 5, image = imageId, startedby = 'event')
 			return
@@ -227,8 +227,11 @@ class PictureEvent(Event):
 
 	def execute(self):
 		self.executed = True
-		imageId = Camera.takePicture();
-		Log.write(message = 'Took picture (automated)', level = 2, image = imageId, startedby = 'event')
+		try:
+			imageId = Camera.takePicture();			
+			Log.write(message = 'Took picture (automated)', level = 2, image = imageId, startedby = 'event')
+		except Camera.NoCameraException:
+			Log.write(message = 'Failed to take a picture. No camera found.', level = 4)
 
 	def getName(self):
 		return 'Take Picture Event'

@@ -4,16 +4,28 @@ import datetime
 
 import Config
 import FishTank
+import Log
 
 counter = 0
 
+class NoCameraException(Exception):
+	pass
+
 pygame.camera.init()
-cam = pygame.camera.Camera(pygame.camera.list_cameras()[0], (1280, 720))
+try:
+	cam = pygame.camera.Camera(pygame.camera.list_cameras()[0], (1280, 720))
+except:
+	cam = None
+	print("No camera found")
+	
 lastPictureTaken = datetime.datetime.fromtimestamp(0)
 		
 def takePicture():
 	global counter, lastPictureTaken
 
+	if cam == None:
+		raise NoCameraException('To take a picture, a camera must be connected to a USB port!')
+	
 	FishTank.updateStatus('Taking picture...')
 	lastPictureTaken = datetime.datetime.now()
 	
@@ -28,6 +40,13 @@ def takePicture():
 	
 	FishTank.updateStatus('Ready')
 	return counter
+	
+def tryTakePicture():
+	try:
+		return takePicture()
+	except:
+		Log.write(message = 'Failed to take a picture. No camera found.', level = 4)
+		return 0
 
 def getPictureFilename(index):
 	return Config.path + Config.pictureFolder + Config.pictureFilename.format(str(index))
