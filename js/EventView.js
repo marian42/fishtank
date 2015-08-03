@@ -76,11 +76,11 @@ EventView = {
 	},
 	
 	updateTime: function() {
-		var offset = 1;
-		var now = new Date(new Date().getTime() + offset * 3600 * 1000);
+		var now = moment().tz('Europe/Berlin');
+		var timeIndicatorPosition = now.hour() + now.minute() / 60;
 
-		$('#currenttime')[0].setAttribute('x1',(now.getUTCHours() * 10 + now.getUTCMinutes() / 6));
-		$('#currenttime')[0].setAttribute('x2',(now.getUTCHours() * 10 + now.getUTCMinutes() / 6));
+		$('#currenttime')[0].setAttribute('x1', timeIndicatorPosition * 10);
+		$('#currenttime')[0].setAttribute('x2', timeIndicatorPosition * 10);
 		
 		for (var i = 0; i < this.markers.length; i++) {
 			if (this.markers[i].activeToday())
