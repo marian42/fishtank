@@ -28,8 +28,8 @@ ImageView = {
 		$('#btntakepicture')[0].onclick = this.takePicture;
 	},
 	
-	getImageUrl: function(id) {
-		return this.imgserver + 'img' + id + '.jpg';
+	getImageUrl: function(id, small) {
+		return this.imgserver + 'img' + id + (small ? 's' : '') + '.jpg';
 	},
 
 	update: function(count) {
@@ -40,7 +40,7 @@ ImageView = {
 		for (var i = count; i >= Math.max(this.count - this.displayCount + 1, 1); i--) {
 			this.images[p].display = true;
 			this.images[p].div.style.display = 'block';
-			this.images[p].img.setAttribute('src', this.getImageUrl(i));
+			this.images[p].img.setAttribute('src', this.getImageUrl(i, true));
 			this.images[p].id = i;
 			$(this.images[p].img).click(this.makeShowImage(i));
 			if (p < this.count - oldcount && oldcount != 0) {
@@ -48,14 +48,14 @@ ImageView = {
 				var img = $(this.images[p].img);
 				img.load(function() {
 					img.show(400);
-					$('#latestpicture')[0].setAttribute('src', ImageView.getImageUrl(ImageView.count));			
+					$('#latestpicture')[0].setAttribute('src', ImageView.getImageUrl(ImageView.count, true));			
 				});
 			}
 			p++;
 		}
 		
 		if (this.firstupdate) {
-			$('#latestpicture')[0].setAttribute('src', this.getImageUrl(this.count));
+			$('#latestpicture')[0].setAttribute('src', this.getImageUrl(this.count, true));
 			this.firstupdate = false;
 		}
 		
@@ -66,7 +66,7 @@ ImageView = {
 		if (!$(ImageView.wrapper).is(":visible"))
 			$(ImageView.wrapper).fadeIn(100);
 		ImageView.description.innerHTML = id;
-		ImageView.picture.setAttribute('src', ImageView.getImageUrl(id));
+		ImageView.picture.setAttribute('src', ImageView.getImageUrl(id, false));
 		ImageView.currentId = id;
 	},
 

@@ -20,3 +20,5 @@ secretKey = config.get('server', 'secretkey')
 
 pictureFolder = config.get('pics', 'folder')
 pictureFilename = config.get('pics', 'filename')
+pictureFilenameSmall = config.get('pics', 'filenamesmall')
+pictureSizeSmall = config.get('pics', 'smallwidth')

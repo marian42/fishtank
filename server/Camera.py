@@ -1,5 +1,6 @@
 import pygame.camera
 import pygame.image
+import pygame.transform
 import datetime
 
 import Config
@@ -37,6 +38,7 @@ def takePicture():
 	
 	FishTank.updateStatus('Saving picture...')
 	pygame.image.save(img, getPictureFilename(counter))
+	pygame.image.save(pygame.transform.scale(img, (int(Config.pictureSizeSmall), int(int(Config.pictureSizeSmall) * 720 / 1280))), getPictureFilenameSmall(counter))
 	
 	FishTank.updateStatus('Ready')
 	return counter
@@ -50,3 +52,7 @@ def tryTakePicture():
 
 def getPictureFilename(index):
 	return Config.path + Config.pictureFolder + Config.pictureFilename.format(str(index))
+	
+	
+def getPictureFilenameSmall(index):
+	return Config.path + Config.pictureFolder + Config.pictureFilenameSmall.format(str(index))
