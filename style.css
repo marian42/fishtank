@@ -203,3 +203,8 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.logFoodIcon {
+	width: 17px;
+	margin-right: 8px;
+}

@@ -73,7 +73,15 @@ LogView = {
 			}
 			
 			cell = row.insertCell(0);
-			cell.innerHTML = data[i][2];
+
+			var foodIcon = '';
+			for (var j = 1; j < 6; j++) {
+				if (data[i][2].indexOf('Food ' + j) > -1) {
+					foodIcon = '<img src="/img/food' + j + '.png" class="logFoodIcon">';
+				}
+			}
+
+			cell.innerHTML = foodIcon + data[i][2];
 			if (data[i][4] != 0) {
 				cell.onclick = ImageView.makeShowImage(data[i][4]);
 			}
