@@ -1,3 +1,7 @@
+Move project folder to /var/www/
+Install python modules
+sudo apt-get install python-configparser python-mysqldb python-magic python-websocket
+
 GPIO
 	setup wirinPi as explained here:
 	http://www.raspberrypi.org/forums/viewtopic.php?t=32177&p=483706
